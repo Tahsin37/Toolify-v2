@@ -1,0 +1,134 @@
+﻿
+> seo-tools-platform@1.0.0 build
+> next build
+
+  Γû▓ Next.js 14.2.0
+
+   Creating an optimized production build ...
+node.exe : Failed to compile.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\Tahsin\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpe 
+   cified: (Failed to compile.:Stri  
+  ng) [], RemoteException
+    + FullyQualifiedErrorId : Native 
+   CommandError
+ 
+
+src\app\layout.tsx
+An error occurred in `next/font`.
+
+Error: Cannot find module 
+'tailwindcss'
+Require stack:
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\blocks\css\plugins.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\blocks\css\index.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\index.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack-config
+.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack-build\
+impl.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\compiled\jest-worker
+\processChild.js
+    at Function.<anonymous> (node:int
+ernal/modules/cjs/loader:1383:15)
+    at D:\google\seo-tools-platform\n
+ode_modules\next\dist\server\require-
+hook.js:55:36
+    at Function.resolve (node:interna
+l/modules/helpers:157:19)
+    at loadPlugin (D:\google\seo-tool
+s-platform\node_modules\next\dist\bui
+ld\webpack\config\blocks\css\plugins.
+js:49:32)
+    at D:\google\seo-tools-platform\n
+ode_modules\next\dist\build\webpack\c
+onfig\blocks\css\plugins.js:157:56
+    at Array.map (<anonymous>)
+    at getPostCssPlugins (D:\google\s
+eo-tools-platform\node_modules\next\d
+ist\build\webpack\config\blocks\css\p
+lugins.js:157:47)
+    at async D:\google\seo-tools-plat
+form\node_modules\next\dist\build\web
+pack\config\blocks\css\index.js:124:3
+6
+    at async D:\google\seo-tools-plat
+form\node_modules\next\dist\build\web
+pack\loaders\next-font-loader\index.j
+s:86:33
+    at async Span.traceAsyncFn (D:\go
+ogle\seo-tools-platform\node_modules\
+next\dist\trace\trace.js:154:20)
+
+src\app\layout.tsx
+An error occurred in `next/font`.
+
+Error: Cannot find module 
+'tailwindcss'
+Require stack:
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\blocks\css\plugins.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\blocks\css\index.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack\config
+\index.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack-config
+.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\build\webpack-build\
+impl.js
+- D:\google\seo-tools-platform\node_m
+odules\next\dist\compiled\jest-worker
+\processChild.js
+    at Function.<anonymous> (node:int
+ernal/modules/cjs/loader:1383:15)
+    at D:\google\seo-tools-platform\n
+ode_modules\next\dist\server\require-
+hook.js:55:36
+    at Function.resolve (node:interna
+l/modules/helpers:157:19)
+    at loadPlugin (D:\google\seo-tool
+s-platform\node_modules\next\dist\bui
+ld\webpack\config\blocks\css\plugins.
+js:49:32)
+    at D:\google\seo-tools-platform\n
+ode_modules\next\dist\build\webpack\c
+onfig\blocks\css\plugins.js:157:56
+    at Array.map (<anonymous>)
+    at getPostCssPlugins (D:\google\s
+eo-tools-platform\node_modules\next\d
+ist\build\webpack\config\blocks\css\p
+lugins.js:157:47)
+    at async D:\google\seo-tools-plat
+form\node_modules\next\dist\build\web
+pack\config\blocks\css\index.js:124:3
+6
+    at async D:\google\seo-tools-plat
+form\node_modules\next\dist\build\web
+pack\loaders\next-font-loader\index.j
+s:86:33
+    at async Span.traceAsyncFn (D:\go
+ogle\seo-tools-platform\node_modules\
+next\dist\trace\trace.js:154:20)
+
+
+> Build failed because of webpack 
+errors

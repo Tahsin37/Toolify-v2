@@ -1,0 +1,8 @@
+﻿src/lib/tools/developer/json-formatter.ts(243,18): error TS1252: Function declarations are not allowed inside blocks in strict mode when targeting 'ES5'. Modules are automatically in strict mode.
+src/lib/tools/developer/json-formatter.ts(284,18): error TS1252: Function declarations are not allowed inside blocks in strict mode when targeting 'ES5'. Modules are automatically in strict mode.
+src/lib/tools/developer/json-formatter.ts(315,35): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/tools/seo/keyword-density.ts(36,36): error TS2802: Type 'Map<string, number>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/tools/seo/noindex-checker.ts(218,16): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/tools/social/youtube-title.ts(102,67): error TS1501: This regular expression flag is only available when targeting 'es6' or later.
+src/lib/tools/text/duplicate-remover.ts(80,33): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/utils/text-analysis.ts(181,156): error TS1501: This regular expression flag is only available when targeting 'es6' or later.
