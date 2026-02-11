@@ -136,26 +136,8 @@ export default function Home() {
 
                         {/* Product Hunt & Social Proof */}
                         <div className="mt-12 md:mt-16 animate-fade-in-up delay-200 flex flex-col items-center gap-4">
-                            <a href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-4 bg-white border border-slate-200/60 rounded-full pl-2 pr-6 py-2 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:border-orange-200/60 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF6154] text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.6 13.5H16.4V16.3H19.2V7.9H13.6V13.5ZM24 12.1C24 18.7848 18.5848 24.2 11.9 24.2C5.2152 24.2 -0.2 18.7848 -0.2 12.1C-0.2 5.4152 5.2152 0 11.9 0C18.5848 0 24 5.4152 24 12.1Z" />
-                                    </svg>
-                                </div>
-                                <div className="flex flex-col items-start gap-0.5">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Featured on</span>
-                                    <span className="text-base font-bold text-slate-900 leading-none group-hover:text-[#FF6154] transition-colors">Product Hunt</span>
-                                </div>
-                                <div className="h-8 w-px bg-slate-100 mx-1"></div>
-                                <div className="flex flex-col items-start gap-0.5">
-                                    <div className="flex items-center gap-1">
-                                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 0L12 10H0L6 0Z" fill="#FF6154" />
-                                        </svg>
-                                        <span className="text-sm font-bold text-slate-700">563</span>
-                                    </div>
-                                    <span className="text-[10px] font-medium text-slate-400">Upvotes</span>
-                                </div>
+                            <a href="https://www.producthunt.com/products/toolify-5?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-toolify-6" target="_blank" rel="noopener noreferrer" className="hover:-translate-y-0.5 transition-transform duration-300">
+                                <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1077924&theme=light" alt="Toolify - 75+ powerful tools. One platform. Zero friction. | Product Hunt" style={{ width: '250px', height: '54px' }} width="250" height="54" />
                             </a>
 
                             <p className="text-xs text-slate-400 font-medium tracking-wide">
