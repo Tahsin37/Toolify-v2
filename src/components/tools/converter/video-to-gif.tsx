@@ -78,7 +78,7 @@ export function VideoToGif() {
             await ffmpeg.exec(['-i', inputName, '-vf', 'fps=10,scale=480:-1:flags=lanczos', '-c:v', 'gif', '-f', 'gif', outputName]);
 
             const data = await ffmpeg.readFile(outputName);
-            const blob = new Blob([data], { type: 'image/gif' });
+            const blob = new Blob([data as any], { type: 'image/gif' });
             const url = URL.createObjectURL(blob);
             setGifUrl(url);
             setStatus('Conversion complete!');
