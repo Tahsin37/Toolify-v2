@@ -20,7 +20,7 @@ export default function AboutPage() {
             <main className="flex-1">
                 {/* Hero */}
                 <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
-                    <div className="container px-4 text-center">
+                    <div className="container px-4 text-center mx-auto max-w-5xl">
                         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-3xl mb-6 shadow-xl shadow-indigo-500/20">
                             <Sparkles className="h-10 w-10 text-white" />
                         </div>
@@ -36,7 +36,7 @@ export default function AboutPage() {
 
                 {/* Stats */}
                 <section className="py-12 bg-white border-y border-slate-100">
-                    <div className="container px-4">
+                    <div className="container px-4 mx-auto max-w-5xl">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                             {[
                                 { value: '50+', label: 'Free Tools' },
@@ -55,7 +55,7 @@ export default function AboutPage() {
 
                 {/* Mission Cards */}
                 <section className="py-20 bg-white">
-                    <div className="container px-4">
+                    <div className="container px-4 mx-auto max-w-5xl">
                         <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">
                             What We Stand For
                         </h2>
@@ -94,7 +94,7 @@ export default function AboutPage() {
 
                 {/* Story Section */}
                 <section className="py-20 bg-slate-50">
-                    <div className="container px-4">
+                    <div className="container px-4 mx-auto max-w-5xl">
                         <div className="max-w-4xl mx-auto">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div>
@@ -130,7 +130,7 @@ export default function AboutPage() {
 
                 {/* Technology */}
                 <section className="py-20 bg-white">
-                    <div className="container px-4">
+                    <div className="container px-4 mx-auto max-w-5xl">
                         <div className="max-w-4xl mx-auto text-center">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Technology</h2>
                             <p className="text-lg text-slate-600 leading-relaxed mb-8">
@@ -151,7 +151,7 @@ export default function AboutPage() {
 
                 {/* CTA */}
                 <section className="py-20 bg-gradient-to-br from-indigo-600 to-violet-600">
-                    <div className="container px-4 text-center">
+                    <div className="container px-4 text-center mx-auto max-w-5xl">
                         <h2 className="text-3xl font-bold text-white mb-4">
                             Ready to Get Started?
                         </h2>

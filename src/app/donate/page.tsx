@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
     Heart, Copy, CheckCircle2, ExternalLink, Coffee,
-    Zap, Gift, Star, Sparkles, CreditCard, Building2
+    Zap, Gift, Star, Sparkles, Lock
 } from 'lucide-react';
 
 interface CryptoWallet {
@@ -41,14 +41,6 @@ const cryptoWallets: CryptoWallet[] = [
         icon: '₮',
     },
 ];
-
-const bankDetails = {
-    bankName: 'Example Bank',
-    accountName: 'Toolify Inc.',
-    accountNumber: '****4567',
-    routingNumber: '****1234',
-    swift: 'EXBK****',
-};
 
 export default function DonatePage() {
     const [copiedAddress, setCopiedAddress] = React.useState<string | null>(null);
@@ -94,17 +86,68 @@ export default function DonatePage() {
                     ))}
                 </div>
 
-                {/* Crypto Donations */}
-                <div className="mb-12">
+                {/* Buy Me a Coffee — Primary CTA */}
+                <div className="mb-16">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
                         <span className="inline-flex items-center gap-2">
                             <Coffee className="h-6 w-6 text-amber-500" />
+                            Buy Me a Coffee
+                        </span>
+                    </h2>
+                    <div className="max-w-lg mx-auto">
+                        <Card className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 border border-amber-200 p-8 text-center hover:shadow-xl transition-all duration-300 group">
+                            {/* Decorative circles */}
+                            <div className="absolute -top-6 -right-6 w-24 h-24 bg-amber-200/30 rounded-full blur-xl" />
+                            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-orange-200/30 rounded-full blur-xl" />
+
+                            <div className="relative z-10">
+                                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl mb-5 shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform duration-300">
+                                    <Coffee className="h-8 w-8 text-white" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                                    Support with a Coffee ☕
+                                </h3>
+                                <p className="text-slate-600 mb-6 text-sm max-w-sm mx-auto">
+                                    Your support keeps Toolify free and ad-free. Every coffee counts!
+                                </p>
+                                <a
+                                    href="https://buymeacoffee.com/tahsin37"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block"
+                                >
+                                    <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-3 text-base font-semibold rounded-xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 hover:scale-105">
+                                        <Coffee className="h-5 w-5 mr-2" />
+                                        Buy Me a Coffee
+                                        <ExternalLink className="h-4 w-4 ml-2 opacity-60" />
+                                    </Button>
+                                </a>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+
+                {/* Crypto Donations — Currently Inactive */}
+                <div className="mb-12">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+                        <span className="inline-flex items-center gap-2">
+                            <Sparkles className="h-6 w-6 text-indigo-500" />
                             Donate with Crypto
                         </span>
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {cryptoWallets.map((wallet) => (
-                            <Card key={wallet.symbol} className="p-6 bg-white border border-slate-200 hover:shadow-lg transition-shadow">
+                            <Card key={wallet.symbol} className="relative p-6 bg-white border border-slate-200 overflow-hidden">
+                                {/* Inactive Overlay */}
+                                <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] z-10 flex flex-col items-center justify-center">
+                                    <div className="bg-slate-100 rounded-full p-3 mb-3">
+                                        <Lock className="h-5 w-5 text-slate-400" />
+                                    </div>
+                                    <p className="text-sm font-semibold text-slate-500">Not Active Currently</p>
+                                    <p className="text-xs text-slate-400 mt-1">Coming soon</p>
+                                </div>
+
+                                {/* Card content (dimmed behind overlay) */}
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${wallet.color} flex items-center justify-center text-2xl font-bold text-white shadow-sm`}>
                                         {wallet.icon}
@@ -122,60 +165,14 @@ export default function DonatePage() {
                                 <Button
                                     variant="outline"
                                     className="w-full"
-                                    onClick={() => copyToClipboard(wallet.address, wallet.symbol)}
+                                    disabled
                                 >
-                                    {copiedAddress === wallet.symbol ? (
-                                        <>
-                                            <CheckCircle2 className="h-4 w-4 mr-2 text-emerald-500" />
-                                            Copied!
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Copy className="h-4 w-4 mr-2" />
-                                            Copy Address
-                                        </>
-                                    )}
+                                    <Copy className="h-4 w-4 mr-2" />
+                                    Copy Address
                                 </Button>
                             </Card>
                         ))}
                     </div>
-                </div>
-
-                {/* Bank Transfer */}
-                <div className="mb-16">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-                        <span className="inline-flex items-center gap-2">
-                            <Building2 className="h-6 w-6 text-indigo-500" />
-                            Bank Transfer
-                        </span>
-                    </h2>
-                    <Card className="p-6 bg-white border border-slate-200 max-w-xl mx-auto">
-                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-100">
-                            <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center">
-                                <CreditCard className="h-6 w-6 text-indigo-600" />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-slate-900">{bankDetails.bankName}</h3>
-                                <p className="text-sm text-slate-500">{bankDetails.accountName}</p>
-                            </div>
-                        </div>
-                        <div className="space-y-3 text-sm">
-                            {[
-                                ['Account Name', bankDetails.accountName],
-                                ['Account Number', bankDetails.accountNumber],
-                                ['Routing Number', bankDetails.routingNumber],
-                                ['SWIFT', bankDetails.swift],
-                            ].map(([label, value]) => (
-                                <div key={label} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
-                                    <span className="text-slate-500">{label}</span>
-                                    <span className="font-medium text-slate-800">{value}</span>
-                                </div>
-                            ))}
-                        </div>
-                        <p className="text-xs text-slate-400 mt-4 text-center">
-                            Contact us for full bank details: support@toolify.app
-                        </p>
-                    </Card>
                 </div>
 
                 {/* Thank You */}
@@ -205,7 +202,7 @@ export default function DonatePage() {
                             </Button>
                         </a>
                         <a
-                            href="https://github.com/toolify-app/toolify"
+                            href="https://github.com/Tahsin37/Toolify-v2"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -215,7 +212,7 @@ export default function DonatePage() {
                             </Button>
                         </a>
                         <a
-                            href="https://www.producthunt.com/posts/toolify"
+                            href="https://www.producthunt.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >

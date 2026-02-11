@@ -110,121 +110,129 @@ export default function ToolsPage() {
         <div className="flex min-h-screen flex-col bg-slate-50">
             <Header />
 
-            <main className="flex-1">
-                {/* Hero Section */}
-                <section className="bg-gradient-to-br from-indigo-600 to-purple-700 py-16">
+            <main className="flex-1 bg-slate-50">
+                {/* Hero */}
+                <section className="bg-white border-b border-slate-100 pt-20 pb-12 md:pt-24 md:pb-16">
                     <div className="container mx-auto px-4 text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
-                            <Wrench className="h-8 w-8 text-white" />
+                        <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-indigo-600 mb-4 md:mb-6">
+                            <Wrench className="h-4 w-4" />
+                            {allTools.length}+ Professional Tools
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-                            All Tools
-                        </h1>
-                        <p className="text-lg text-white/80 max-w-2xl mx-auto">
-                            Explore our collection of {allTools.length}+ free, powerful online tools for developers and SEO professionals.
-                        </p>
-                    </div>
-                </section>
 
-                <section className="container mx-auto px-4 py-12">
-                    {/* Search & Filters */}
-                    <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-10 shadow-sm max-w-4xl mx-auto">
-                        <div className="flex flex-col md:flex-row gap-4">
-                            <div className="relative flex-1">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 md:mb-4 tracking-tight px-2">
+                            All Tools in One Place
+                        </h1>
+
+                        <p className="text-sm sm:text-base md:text-lg text-slate-500 max-w-2xl mx-auto mb-8 md:mb-10 px-4">
+                            Powerful, fast, and completely free. No sign-up required — just tools that work.
+                        </p>
+
+                        {/* Search */}
+                        <div className="max-w-xl mx-auto px-4 md:px-0">
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-2xl opacity-0 group-hover:opacity-20 blur transition duration-200"></div>
+                                <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-slate-400 pointer-events-none z-10" />
                                 <Input
-                                    placeholder="Search for tools..."
-                                    className="pl-12 h-12 text-base bg-slate-50 border-slate-200"
+                                    type="text"
+                                    placeholder="Search tools..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="relative h-11 md:h-14 pl-10 md:pl-12 pr-10 md:pr-12 rounded-full border-2 border-slate-200 focus:border-indigo-500 shadow-sm text-sm md:text-base"
                                 />
                                 {searchQuery && (
                                     <button
                                         onClick={() => setSearchQuery('')}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                        className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 z-10"
                                     >
-                                        <X className="h-5 w-5" />
+                                        <X className="h-4 w-4 md:h-5 md:w-5" />
                                     </button>
                                 )}
                             </div>
                         </div>
 
-                        {/* Category Filters */}
-                        <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                            <Button
-                                variant={selectedCategory === null ? 'primary' : 'outline'}
-                                size="sm"
-                                onClick={() => setSelectedCategory(null)}
-                                className="rounded-full"
-                            >
-                                All ({allTools.length})
-                            </Button>
-                            {categories.map(cat => {
-                                const count = allTools.filter(t => t.category === cat).length;
-                                return (
-                                    <Button
-                                        key={cat}
-                                        variant={selectedCategory === cat ? 'primary' : 'outline'}
-                                        size="sm"
-                                        onClick={() => setSelectedCategory(cat)}
-                                        className="rounded-full"
-                                    >
-                                        {cat} ({count})
-                                    </Button>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Results Count */}
-                    <div className="text-center mb-8">
-                        <p className="text-slate-500">
-                            Showing <span className="font-bold text-slate-900">{filteredTools.length}</span> tools
-                            {selectedCategory && <span> in <span className="font-medium text-indigo-600">{selectedCategory}</span></span>}
-                            {searchQuery && <span> matching "<span className="font-medium">{searchQuery}</span>"</span>}
-                        </p>
-                    </div>
-
-                    {/* Tools Grid - Centered */}
-                    {filteredTools.length > 0 ? (
-                        <div className="flex justify-center">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl">
-                                <AnimatePresence>
-                                    {filteredTools.map((tool) => (
-                                        <motion.div
-                                            key={tool.id}
-                                            layout
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -20 }}
-                                            transition={{ duration: 0.2 }}
+                        {/* Category Filters - Horizontal Scroll on Mobile */}
+                        <div className="mt-6 md:mt-8 -mx-4 md:mx-0">
+                            <div className="flex md:flex-wrap gap-2 px-4 md:px-0 md:justify-center overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+                                <Button
+                                    variant={selectedCategory === null ? 'primary' : 'outline'}
+                                    size="sm"
+                                    onClick={() => setSelectedCategory(null)}
+                                    className="rounded-full flex-shrink-0 text-xs md:text-sm h-9 md:h-10"
+                                >
+                                    All ({allTools.length})
+                                </Button>
+                                {categories.map((category) => {
+                                    const count = allTools.filter(t => t.category === category).length;
+                                    return (
+                                        <Button
+                                            key={category}
+                                            variant={selectedCategory === category ? 'primary' : 'outline'}
+                                            size="sm"
+                                            onClick={() => setSelectedCategory(category)}
+                                            className="rounded-full flex-shrink-0 text-xs md:text-sm h-9 md:h-10"
                                         >
-                                            <ToolCard
-                                                slug={tool.slug}
-                                                name={tool.name}
-                                                description={toolDescriptions[tool.slug] || `Professional ${tool.name.toLowerCase()} — fast, secure, and browser-based.`}
-                                                category={tool.category}
-                                            />
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
+                                            {category} ({count})
+                                        </Button>
+                                    );
+                                })}
                             </div>
                         </div>
-                    ) : (
-                        <div className="text-center py-20">
-                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 mb-6">
-                                <Search className="h-10 w-10 text-slate-400" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">No tools found</h3>
-                            <p className="text-slate-500 mb-6">Try adjusting your search or filters.</p>
-                            <Button
-                                variant="outline"
-                                onClick={() => { setSearchQuery(''); setSelectedCategory(null); }}
-                            >
-                                Clear all filters
-                            </Button>
+
+                    </div>
+                </section>
+
+                {/* Tools */}
+                <section className="py-12 md:py-16 lg:py-20">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center mb-6 md:mb-8">
+                            <p className="text-sm md:text-base text-slate-500">
+                                Showing <span className="font-bold text-slate-900">{filteredTools.length}</span> tools
+                                {selectedCategory && <span> in <span className="font-medium text-indigo-600">{selectedCategory}</span></span>}
+                                {searchQuery && <span> matching "<span className="font-medium">{searchQuery}</span>"</span>}
+                            </p>
                         </div>
-                    )}
+
+                        {/* Tools Grid - Centered */}
+                        {filteredTools.length > 0 ? (
+                            <div className="flex justify-center">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 max-w-7xl w-full">
+                                    <AnimatePresence>
+                                        {filteredTools.map((tool) => (
+                                            <motion.div
+                                                key={tool.id}
+                                                layout
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                <ToolCard
+                                                    slug={tool.slug}
+                                                    name={tool.name}
+                                                    description={toolDescriptions[tool.slug] || `Professional ${tool.name.toLowerCase()} — fast, secure, and browser-based.`}
+                                                    category={tool.category}
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="text-center py-20">
+                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 mb-6">
+                                    <Search className="h-10 w-10 text-slate-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-2">No tools found</h3>
+                                <p className="text-slate-500 mb-6">Try adjusting your search or filters.</p>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => { setSearchQuery(''); setSelectedCategory(null); }}
+                                >
+                                    Clear all filters
+                                </Button>
+                            </div>
+                        )}
+                    </div>
                 </section>
             </main>
 

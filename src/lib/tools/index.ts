@@ -34,8 +34,6 @@ export const TOOL_REGISTRY = {
             { id: 'slug-optimizer', name: 'SEO Slug Optimizer', slug: 'seo-slug-optimizer' },
             { id: 'serp-preview', name: 'SERP Preview Tool', slug: 'serp-preview-tool' },
             { id: 'noindex-checker', name: 'Noindex/Nofollow Checker', slug: 'noindex-nofollow-checker' },
-            { id: 'website-analyzer', name: 'Website Analyzer', slug: 'website-analyzer' },
-            { id: 'website-safety-checker', name: 'Website Safety Checker', slug: 'website-safety-checker' },
             { id: 'seo-checker', name: 'SEO Checker & Score', slug: 'seo-checker' },
         ],
     },
@@ -61,6 +59,8 @@ export const TOOL_REGISTRY = {
             { id: 'url-codec', name: 'URL Encode/Decode', slug: 'url-encode-decode' },
             { id: 'regex-tester', name: 'Regex Tester', slug: 'regex-tester' },
             { id: 'jwt-decoder', name: 'JWT Decoder', slug: 'jwt-decoder' },
+            { id: 'website-analyzer', name: 'Website Analyzer', slug: 'website-analyzer' },
+            { id: 'website-safety-checker', name: 'Website Safety Checker', slug: 'website-safety-checker' },
         ],
     },
     social: {
@@ -87,6 +87,7 @@ export const TOOL_REGISTRY = {
             // Document Converters
             { id: 'doc-to-pdf', name: 'DOC to PDF Converter', slug: 'doc-to-pdf' },
             { id: 'pdf-to-doc', name: 'PDF to Word Converter', slug: 'pdf-to-doc' },
+            { id: 'pdf-to-image', name: 'PDF to Image Converter', slug: 'pdf-to-image' },
             { id: 'csv-to-xlsx', name: 'CSV to Excel Converter', slug: 'csv-to-xlsx' },
             { id: 'xlsx-to-csv', name: 'Excel to CSV Converter', slug: 'xlsx-to-csv' },
             // Audio/Video Converters
@@ -95,6 +96,7 @@ export const TOOL_REGISTRY = {
             // Image Converters
             { id: 'png-to-jpg', name: 'PNG to JPG Converter', slug: 'png-to-jpg' },
             { id: 'jpg-to-png', name: 'JPG to PNG Converter', slug: 'jpg-to-png' },
+            { id: 'svg-to-png', name: 'SVG to PNG Converter', slug: 'svg-to-png' },
             { id: 'image-to-webp', name: 'Image to WebP Converter', slug: 'image-to-webp' },
             { id: 'webp-to-png', name: 'WebP to PNG Converter', slug: 'webp-to-png' },
             { id: 'image-resizer', name: 'Image Resizer', slug: 'image-resizer' },
@@ -107,6 +109,7 @@ export const TOOL_REGISTRY = {
             { id: 'html-to-markdown', name: 'HTML to Markdown', slug: 'html-to-markdown' },
             { id: 'xml-to-json', name: 'XML to JSON Converter', slug: 'xml-to-json' },
             { id: 'json-to-xml', name: 'JSON to XML Converter', slug: 'json-to-xml' },
+            { id: 'json-to-yaml', name: 'JSON to YAML Converter', slug: 'json-to-yaml' },
         ],
     },
     utility: {
@@ -126,7 +129,6 @@ export const TOOL_REGISTRY = {
             { id: 'color-palette', name: 'Color Palette Generator', slug: 'color-palette' },
             { id: 'password-generator', name: 'Password Generator', slug: 'password-generator' },
             { id: 'hash-generator', name: 'Hash Generator', slug: 'hash-generator' },
-            { id: 'text-to-speech', name: 'Text to Speech', slug: 'text-to-speech' },
             { id: 'favicon-generator', name: 'Favicon Generator', slug: 'favicon-generator' },
             { id: 'pdf-merger', name: 'PDF Merger', slug: 'pdf-merger' },
             { id: 'keyboard-tester', name: 'Keyboard Tester', slug: 'keyboard-tester' },
@@ -138,6 +140,12 @@ export const TOOL_REGISTRY = {
         tools: [
             { id: '3d-model-viewer', name: '3D Model Viewer', slug: '3d-model-viewer' },
             { id: 'font-previewer', name: 'Font Previewer', slug: 'font-previewer' },
+            { id: 'csv-previewer', name: 'CSV Previewer', slug: 'csv-previewer' },
+            { id: 'xlsx-previewer', name: 'Excel Previewer', slug: 'xlsx-previewer' },
+            { id: 'pdf-previewer', name: 'PDF Previewer', slug: 'pdf-previewer' },
+            { id: 'json-previewer', name: 'JSON Previewer', slug: 'json-previewer' },
+            { id: 'markdown-previewer', name: 'Markdown Previewer', slug: 'markdown-previewer' },
+            { id: 'image-previewer', name: 'Image Previewer', slug: 'image-previewer' },
         ],
     },
 } as const;

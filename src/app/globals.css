@@ -103,3 +103,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(148, 163, 184);
 }
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

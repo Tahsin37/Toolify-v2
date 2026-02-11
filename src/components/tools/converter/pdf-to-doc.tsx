@@ -64,9 +64,27 @@ export function PdfToDoc() {
         setError('');
 
         try {
-            // Dynamically import pdfjs-dist for PDF parsing
-            const pdfjsLib = await import('pdfjs-dist');
-            pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+            // Load pdf.js from CDN to avoid Next.js webpack issues
+            const pdfjsLib = await new Promise<any>((resolve, reject) => {
+                if ((window as any).pdfjsLib) {
+                    resolve((window as any).pdfjsLib);
+                    return;
+                }
+                const PDFJS_VERSION = '3.11.174';
+                const script = document.createElement('script');
+                script.src = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.min.js`;
+                script.onload = () => {
+                    const lib = (window as any).pdfjsLib;
+                    if (lib) {
+                        lib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.worker.min.js`;
+                        resolve(lib);
+                    } else {
+                        reject(new Error('pdf.js failed to load'));
+                    }
+                };
+                script.onerror = () => reject(new Error('Failed to load pdf.js'));
+                document.head.appendChild(script);
+            });
 
             const converted: ConversionResult[] = [];
 

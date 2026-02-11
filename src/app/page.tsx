@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { ToolCard } from '@/components/ui/tool-card';
 import { getAllTools } from '@/lib/tools';
-import { Search, Zap, Shield, Globe, X } from 'lucide-react';
+import { Search, Zap, Shield, Globe, X, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -43,7 +43,7 @@ export default function Home() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="relative px-4 pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
+                <section className="relative px-4 pt-20 pb-24 md:pt-24 md:pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
                     {/* Background Decor */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
                         <div className="absolute top-[10%] left-[20%] w-72 h-72 bg-indigo-200/20 rounded-full blur-[100px]" />
@@ -51,26 +51,28 @@ export default function Home() {
                     </div>
 
                     <div className="container mx-auto relative z-10 text-center max-w-4xl">
-                        <div className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600 mb-8 animate-fade-in-up">
+
+
+                        <div className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600 mb-6 md:mb-8 animate-fade-in-up">
                             <span className="flex h-2 w-2 rounded-full bg-indigo-500 mr-2"></span>
                             All-in-One Developer Toolkit
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 mb-4 md:mb-6 leading-[1.1] px-2">
                             The Essential <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Tool Suite</span><br />
                             for Modern Builders.
                         </h1>
 
-                        <p className="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-base sm:text-lg md:text-xl text-slate-500 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4">
                             {allTools.length}+ Free, privacy-first tools for SEO, development, and content creation.
                             No sign-up required.
                         </p>
 
                         {/* Search Hero */}
-                        <div className="max-w-xl mx-auto relative group">
+                        <div className="max-w-xl mx-auto relative group px-2">
                             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-2xl opacity-20 group-hover:opacity-30 blur transition duration-200"></div>
                             <div className="relative flex items-center bg-white rounded-xl shadow-2xl shadow-indigo-500/10 p-2 border border-slate-100">
-                                <Search className="h-6 w-6 text-slate-400 ml-4 pointer-events-none" />
+                                <Search className="h-5 w-5 sm:h-6 sm:w-6 text-slate-400 ml-3 sm:ml-4 pointer-events-none flex-shrink-0" />
                                 <input
                                     type="text"
                                     value={searchQuery}
@@ -80,21 +82,21 @@ export default function Home() {
                                     }}
                                     onFocus={() => setShowResults(true)}
                                     placeholder="Search tools... (e.g., JSON, Image, PDF)"
-                                    className="w-full h-12 px-4 text-lg outline-none text-slate-700 placeholder:text-slate-400 bg-transparent rounded-lg"
+                                    className="w-full h-10 sm:h-12 px-3 sm:px-4 text-base sm:text-lg outline-none text-slate-700 placeholder:text-slate-400 bg-transparent rounded-lg"
                                 />
                                 {searchQuery && (
                                     <button
                                         onClick={() => { setSearchQuery(''); setShowResults(false); }}
-                                        className="p-2 hover:bg-slate-100 rounded-lg mr-2"
+                                        className="p-2 hover:bg-slate-100 rounded-lg mr-1 sm:mr-2 flex-shrink-0"
                                     >
-                                        <X className="h-5 w-5 text-slate-400" />
+                                        <X className="h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
                                     </button>
                                 )}
                             </div>
 
                             {/* Search Results Dropdown */}
                             {showResults && searchQuery && (
-                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 max-h-96 overflow-auto z-50">
+                                <div className="absolute top-full left-0 right-0 mt-2 mx-2 bg-white rounded-xl shadow-2xl border border-slate-200 max-h-96 overflow-auto z-50">
                                     {filteredTools.length > 0 ? (
                                         <div className="p-2">
                                             {filteredTools.slice(0, 8).map((tool) => (
@@ -104,11 +106,11 @@ export default function Home() {
                                                     className="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors"
                                                     onClick={() => setShowResults(false)}
                                                 >
-                                                    <div>
-                                                        <p className="font-medium text-slate-900">{tool.name}</p>
-                                                        <p className="text-sm text-slate-500">{tool.category}</p>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="font-medium text-slate-900 truncate">{tool.name}</p>
+                                                        <p className="text-sm text-slate-500 truncate">{tool.category}</p>
                                                     </div>
-                                                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                                                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded ml-2 flex-shrink-0">
                                                         Open →
                                                     </span>
                                                 </Link>
@@ -132,21 +134,50 @@ export default function Home() {
                             )}
                         </div>
 
-                        <div className="mt-12 flex items-center justify-center space-x-8 text-sm font-medium text-slate-500">
-                            <span className="flex items-center"><Zap className="h-4 w-4 mr-2 text-indigo-500" /> Instant Results</span>
-                            <span className="flex items-center"><Shield className="h-4 w-4 mr-2 text-indigo-500" /> Client-Side Secure</span>
-                            <span className="flex items-center"><Globe className="h-4 w-4 mr-2 text-indigo-500" /> SEO Optimized</span>
+                        {/* Product Hunt & Social Proof */}
+                        <div className="mt-12 md:mt-16 animate-fade-in-up delay-200 flex flex-col items-center gap-4">
+                            <a href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-4 bg-white border border-slate-200/60 rounded-full pl-2 pr-6 py-2 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:border-orange-200/60 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF6154] text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.6 13.5H16.4V16.3H19.2V7.9H13.6V13.5ZM24 12.1C24 18.7848 18.5848 24.2 11.9 24.2C5.2152 24.2 -0.2 18.7848 -0.2 12.1C-0.2 5.4152 5.2152 0 11.9 0C18.5848 0 24 5.4152 24 12.1Z" />
+                                    </svg>
+                                </div>
+                                <div className="flex flex-col items-start gap-0.5">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Featured on</span>
+                                    <span className="text-base font-bold text-slate-900 leading-none group-hover:text-[#FF6154] transition-colors">Product Hunt</span>
+                                </div>
+                                <div className="h-8 w-px bg-slate-100 mx-1"></div>
+                                <div className="flex flex-col items-start gap-0.5">
+                                    <div className="flex items-center gap-1">
+                                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 0L12 10H0L6 0Z" fill="#FF6154" />
+                                        </svg>
+                                        <span className="text-sm font-bold text-slate-700">563</span>
+                                    </div>
+                                    <span className="text-[10px] font-medium text-slate-400">Upvotes</span>
+                                </div>
+                            </a>
+
+                            <p className="text-xs text-slate-400 font-medium tracking-wide">
+                                TRUSTED BY <span className="text-slate-600 font-bold">10,000+</span> DEVELOPERS
+                            </p>
+                        </div>
+
+                        <div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm font-medium text-slate-500 px-4">
+                            <span className="flex items-center"><Zap className="h-4 w-4 mr-2 text-indigo-500 flex-shrink-0" /> Instant Results</span>
+                            <span className="flex items-center"><Shield className="h-4 w-4 mr-2 text-indigo-500 flex-shrink-0" /> Client-Side Secure</span>
+                            <span className="flex items-center"><Globe className="h-4 w-4 mr-2 text-indigo-500 flex-shrink-0" /> SEO Optimized</span>
                         </div>
                     </div>
                 </section>
 
                 {/* Tools Grid */}
-                <section className="py-24 bg-white border-t border-slate-100">
+                <section className="py-16 md:py-20 lg:py-24 bg-white border-t border-slate-100">
                     <div className="container mx-auto px-4">
-                        <div className="flex items-end justify-between mb-12">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 md:mb-12 gap-4">
                             <div>
-                                <h2 className="text-3xl font-bold text-slate-900 mb-3">Popular Utilities</h2>
-                                <p className="text-slate-500 text-lg">Most used tools by the community this week.</p>
+                                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 md:mb-3">Popular Utilities</h2>
+                                <p className="text-slate-500 text-base md:text-lg">Most used tools by the community this week.</p>
                             </div>
                             <Link href="/tools">
                                 <Button variant="ghost" className="hidden sm:inline-flex text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 rounded-full">
@@ -156,7 +187,7 @@ export default function Home() {
                         </div>
 
                         {/* Popular Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-16 md:mb-20">
                             {popularTools.map((tool) => (
                                 <ToolCard
                                     key={tool.id}
@@ -177,13 +208,13 @@ export default function Home() {
                             ))}
                         </div>
 
-                        <div className="mb-12">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-3">All Tools</h2>
-                            <p className="text-slate-500 text-lg">Explore our complete collection.</p>
+                        <div className="mb-8 md:mb-12">
+                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 md:mb-3">All Tools</h2>
+                            <p className="text-slate-500 text-base md:text-lg">Explore our complete collection.</p>
                         </div>
 
                         {/* All Tools Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                             {otherTools.slice(0, 16).map((tool) => (
                                 <ToolCard
                                     key={tool.id}
@@ -195,9 +226,9 @@ export default function Home() {
                             ))}
                         </div>
 
-                        <div className="mt-16 text-center">
+                        <div className="mt-12 md:mt-16 text-center">
                             <Link href="/tools">
-                                <Button size="lg" variant="outline" className="px-10 h-14 text-base border-2">
+                                <Button size="lg" variant="outline" className="w-full sm:w-auto px-8 md:px-10 h-12 md:h-14 text-sm md:text-base border-2">
                                     Load More Tools
                                 </Button>
                             </Link>
@@ -206,15 +237,15 @@ export default function Home() {
                 </section>
 
                 {/* CTA */}
-                <section className="py-32 bg-slate-900 relative overflow-hidden">
+                <section className="py-20 md:py-28 lg:py-32 bg-slate-900 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
                     <div className="container mx-auto px-4 text-center relative z-10">
-                        <h2 className="text-4xl font-bold text-white mb-6">Built for speed. Designed for you.</h2>
-                        <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg">
-                            Stop fighting with clunky, ad-filled tools. Switch to ZyloTools and experience the difference.
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 px-4">Built for speed. Designed for you.</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mb-8 md:mb-10 text-base md:text-lg px-4">
+                            Stop fighting with clunky, ad-filled tools. Switch to Toolify and experience the difference.
                         </p>
                         <Link href="/tools">
-                            <Button size="lg" className="bg-indigo-500 hover:bg-indigo-400 text-white rounded-full px-12 h-14 text-lg shadow-xl shadow-indigo-900/50">
+                            <Button size="lg" className="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-400 text-white rounded-full px-10 md:px-12 h-12 md:h-14 text-base md:text-lg shadow-xl shadow-indigo-900/50 mx-4">
                                 Explore All Tools
                             </Button>
                         </Link>

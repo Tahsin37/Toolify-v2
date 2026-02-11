@@ -4,9 +4,45 @@ import * as React from 'react';
 import { Card } from '@/components/ui/card';
 import { checkInstagramBio, analyzeInstagramBio, generateBioIdeas } from '@/lib/tools/social/instagram-bio';
 import { cn } from '@/lib/utils';
-import { Instagram, CheckCircle2, XCircle, Smile, Type, Link2, Hash, AtSign, Lightbulb } from 'lucide-react';
+import { Instagram, CheckCircle2, XCircle, Smile, Type, Link2, Hash, AtSign, Lightbulb, Sparkles, ChevronDown } from 'lucide-react';
 import type { InstagramBioResult } from '@/lib/types';
 import { Button } from '@/components/ui/button';
+
+const SAMPLE_BIOS: Record<string, string> = {
+    '📸 Photography': `📸 Capturing moments that matter
+🌍 Based in NYC | Available worldwide
+🏆 Featured in NatGeo & Vogue
+👇 Book your shoot below`,
+    '💻 Tech': `💻 Full-Stack Developer | Open Source
+🚀 Building tools that help devs ship faster
+🎯 React • Node.js • TypeScript
+🔗 Latest project 👇`,
+    '💪 Fitness': `💪 Certified Personal Trainer
+🏋️ Helping you get fit in 12 weeks
+📩 DM for coaching plans
+🌱 Plant-based athlete | NASM-CPT`,
+    '🍳 Food': `🍳 Recipe Creator & Food Stylist
+📍 London | Recipe testing kitchen
+📕 Cookbook author — "Quick & Healthy"
+👇 New recipes every Tuesday & Friday`,
+    '✈️ Travel': `✈️ 47 countries and counting
+📸 Solo female traveler
+💡 Budget travel tips & guides
+📩 Collabs: hello@wanderlust.co`,
+    '📈 Business': `📈 Entrepreneur | 3x Founder
+💰 Helping startups scale to $1M ARR
+🎙️ Host of "Startup Stories" podcast
+👇 Free growth playbook`,
+    '🎵 Music': `🎵 Singer-Songwriter | Producer
+🎸 Indie / Alternative
+🎧 500K+ streams on Spotify
+📩 Booking: music@example.com`,
+    '🎨 Art': `🎨 Digital Artist & Illustrator
+✏️ Commissions open — DM me
+🖼️ Prints available at my shop
+🌈 Creating colorful worlds daily`,
+};
+
 
 export function InstagramBioChecker() {
     const [bio, setBio] = React.useState('');
@@ -22,12 +58,18 @@ export function InstagramBioChecker() {
         }
     }, [bio]);
 
-    const loadExample = () => {
-        setBio(`✨ Digital Creator | SEO Expert
+    const loadExample = (niche?: string) => {
+        if (niche && SAMPLE_BIOS[niche]) {
+            setBio(SAMPLE_BIOS[niche]);
+        } else {
+            setBio(`✨ Digital Creator | SEO Expert
 📍 San Francisco, CA
 🎯 Helping brands grow online
 👇 Check my latest tips`);
+        }
     };
+
+    const [showSamples, setShowSamples] = React.useState(false);
 
     return (
         <div className="space-y-6">
@@ -54,6 +96,35 @@ export function InstagramBioChecker() {
                 />
             </div>
 
+            {/* Sample Bios by Niche */}
+            <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 shadow-sm">
+                <button
+                    onClick={() => setShowSamples(!showSamples)}
+                    className="flex items-center justify-between w-full text-left"
+                >
+                    <span className="font-bold text-purple-900 flex items-center">
+                        <Sparkles className="h-4 w-4 text-purple-600 mr-2" />
+                        Sample Bios by Niche
+                    </span>
+                    <ChevronDown className={cn("h-4 w-4 text-purple-600 transition-transform", showSamples && "rotate-180")} />
+                </button>
+                {showSamples && (
+                    <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+                        {Object.keys(SAMPLE_BIOS).map(niche => (
+                            <Button
+                                key={niche}
+                                size="sm"
+                                variant="outline"
+                                onClick={() => loadExample(niche)}
+                                className="text-xs bg-white hover:bg-purple-50 border-purple-200 text-purple-700 hover:text-purple-900"
+                            >
+                                {niche}
+                            </Button>
+                        ))}
+                    </div>
+                )}
+            </Card>
+
             {/* Bio Input */}
             <Card className="bg-white border border-slate-200 shadow-sm overflow-hidden">
                 <div className="bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-3 flex justify-between items-center">
@@ -61,7 +132,7 @@ export function InstagramBioChecker() {
                         <Instagram className="h-5 w-5 text-white" />
                         <span className="text-sm font-bold text-white">Instagram Bio</span>
                     </div>
-                    <Button variant="ghost" size="sm" onClick={loadExample} className="text-white/90 hover:text-white hover:bg-white/20 text-xs">
+                    <Button variant="ghost" size="sm" onClick={() => loadExample()} className="text-white/90 hover:text-white hover:bg-white/20 text-xs">
                         Load Example
                     </Button>
                 </div>

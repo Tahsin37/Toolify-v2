@@ -2,15 +2,63 @@
 
 import * as React from 'react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { countHashtags, analyzeHashtags, formatHashtags } from '@/lib/tools/social/hashtag-counter';
 import { cn } from '@/lib/utils';
-import { Hash, Copy, Check, CheckCircle, XCircle } from 'lucide-react';
+import { Hash, Copy, Check, CheckCircle, XCircle, TrendingUp, Sparkles, ChevronDown } from 'lucide-react';
+
+// Pre-loaded trending hashtag datasets by category
+const TRENDING_HASHTAGS: Record<string, string[]> = {
+    'Technology': [
+        'tech', 'ai', 'artificialintelligence', 'machinelearning', 'coding',
+        'programming', 'webdev', 'javascript', 'python', 'startup',
+        'innovation', 'software', 'developer', 'opensource', 'cloud',
+        'cybersecurity', 'datascience', 'blockchain', 'react', 'nextjs',
+    ],
+    'Marketing': [
+        'marketing', 'digitalmarketing', 'socialmedia', 'contentmarketing', 'seo',
+        'branding', 'marketingstrategy', 'growthhacking', 'emailmarketing', 'ads',
+        'copywriting', 'leadgeneration', 'influencermarketing', 'b2b', 'ecommerce',
+    ],
+    'Fitness': [
+        'fitness', 'workout', 'gym', 'fitfam', 'motivation',
+        'health', 'bodybuilding', 'training', 'fitnessmotivation', 'healthylifestyle',
+        'exercise', 'cardio', 'personaltrainer', 'crossfit', 'weightlifting',
+    ],
+    'Travel': [
+        'travel', 'wanderlust', 'adventure', 'explore', 'travelgram',
+        'travelphotography', 'vacation', 'roadtrip', 'backpacking', 'tourism',
+        'traveltheworld', 'paradise', 'solotravel', 'bucketlist', 'beautifuldestinations',
+    ],
+    'Food': [
+        'food', 'foodie', 'foodphotography', 'cooking', 'recipe',
+        'homemade', 'delicious', 'yummy', 'instafood', 'healthyfood',
+        'vegan', 'baking', 'chef', 'foodblogger', 'mealprep',
+    ],
+    'Photography': [
+        'photography', 'photooftheday', 'photographer', 'nature', 'landscape',
+        'portrait', 'streetphotography', 'travelphotography', 'sunset', 'canon',
+        'nikon', 'sony', 'photo', 'picoftheday', 'visualart',
+    ],
+    'Business': [
+        'business', 'entrepreneur', 'success', 'leadership', 'motivation',
+        'money', 'investing', 'finance', 'startup', 'hustle',
+        'mindset', 'productivity', 'networking', 'smallbusiness', 'ceo',
+    ],
+    'Education': [
+        'education', 'learning', 'students', 'study', 'knowledge',
+        'school', 'university', 'teacher', 'onlinelearning', 'edtech',
+        'stem', 'science', 'math', 'engineering', 'research',
+    ],
+};
 
 export function HashtagCounter() {
     const [text, setText] = React.useState('');
     const [result, setResult] = React.useState<any>(null);
     const [analysis, setAnalysis] = React.useState<any>(null);
     const [copied, setCopied] = React.useState(false);
+    const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+    const [showSuggestions, setShowSuggestions] = React.useState(true);
 
     React.useEffect(() => {
         if (text.trim()) {
@@ -33,6 +81,25 @@ export function HashtagCounter() {
         }
     };
 
+    const addHashtag = (tag: string) => {
+        const hashtag = `#${tag}`;
+        if (text.includes(hashtag)) return; // Don't add duplicates
+        setText(prev => prev ? `${prev} ${hashtag}` : hashtag);
+    };
+
+    const addAllFromCategory = (category: string) => {
+        const tags = TRENDING_HASHTAGS[category];
+        if (!tags) return;
+        const newTags = tags
+            .filter(tag => !text.includes(`#${tag}`))
+            .slice(0, 15) // Max 15 at a time
+            .map(tag => `#${tag}`)
+            .join(' ');
+        setText(prev => prev ? `${prev} ${newTags}` : newTags);
+    };
+
+    const categories = Object.keys(TRENDING_HASHTAGS);
+
     return (
         <div className="space-y-6">
             {/* Input */}
@@ -44,6 +111,94 @@ export function HashtagCounter() {
                     placeholder="Check out my new post! #socialmedia #marketing #content #digitalmarketing"
                     className="w-full h-32 px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none text-base"
                 />
+            </Card>
+
+            {/* Trending Hashtag Suggestions */}
+            <Card className="p-5 bg-gradient-to-br from-violet-50 to-indigo-50 border border-indigo-200 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                    <h4 className="font-bold text-indigo-900 flex items-center">
+                        <TrendingUp className="h-5 w-5 text-indigo-600 mr-2" />
+                        Trending Hashtags by Category
+                    </h4>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowSuggestions(!showSuggestions)}
+                        className="text-indigo-600 hover:text-indigo-800"
+                    >
+                        <ChevronDown className={cn("h-4 w-4 transition-transform", showSuggestions && "rotate-180")} />
+                    </Button>
+                </div>
+
+                {showSuggestions && (
+                    <>
+                        {/* Category Tabs */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {categories.map(cat => (
+                                <Button
+                                    key={cat}
+                                    size="sm"
+                                    variant={selectedCategory === cat ? 'primary' : 'outline'}
+                                    onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
+                                    className={cn(
+                                        "text-xs h-8 rounded-full",
+                                        selectedCategory === cat
+                                            ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                                            : "bg-white hover:bg-indigo-50 text-indigo-700 border-indigo-200"
+                                    )}
+                                >
+                                    {cat}
+                                </Button>
+                            ))}
+                        </div>
+
+                        {/* Hashtag chips */}
+                        {selectedCategory && (
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-medium text-indigo-600">
+                                        Click to add • {TRENDING_HASHTAGS[selectedCategory].length} tags
+                                    </span>
+                                    <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={() => addAllFromCategory(selectedCategory)}
+                                        className="text-xs text-indigo-600 hover:text-indigo-800 h-7"
+                                    >
+                                        <Sparkles className="h-3 w-3 mr-1" />
+                                        Add Top 15
+                                    </Button>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {TRENDING_HASHTAGS[selectedCategory].map(tag => {
+                                        const isAdded = text.includes(`#${tag}`);
+                                        return (
+                                            <button
+                                                key={tag}
+                                                onClick={() => addHashtag(tag)}
+                                                disabled={isAdded}
+                                                className={cn(
+                                                    "px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200",
+                                                    isAdded
+                                                        ? "bg-indigo-200 text-indigo-400 cursor-not-allowed"
+                                                        : "bg-white text-indigo-700 hover:bg-indigo-100 hover:scale-105 border border-indigo-200 shadow-sm cursor-pointer"
+                                                )}
+                                            >
+                                                #{tag} {isAdded && '✓'}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {!selectedCategory && (
+                            <p className="text-xs text-indigo-500 text-center py-2">
+                                Select a category above to browse trending hashtags
+                            </p>
+                        )}
+                    </>
+                )}
             </Card>
 
             {/* Stats */}

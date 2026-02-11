@@ -426,11 +426,14 @@ export function DocToPdf() {
                                         </Button>
                                     </div>
                                 </div>
-                                {showPreview === index && result.preview && (
-                                    <div
-                                        className="mt-3 p-3 bg-slate-50 rounded text-sm text-slate-600 max-h-40 overflow-y-auto prose prose-sm"
-                                        dangerouslySetInnerHTML={{ __html: result.preview + '...' }}
-                                    />
+                                {showPreview === index && (
+                                    <div className="mt-3 rounded-lg overflow-hidden border border-slate-200">
+                                        <iframe
+                                            src={URL.createObjectURL(result.blob)}
+                                            className="w-full h-[500px] bg-white"
+                                            title={`Preview of ${result.filename}`}
+                                        />
+                                    </div>
                                 )}
                             </div>
                         ))}

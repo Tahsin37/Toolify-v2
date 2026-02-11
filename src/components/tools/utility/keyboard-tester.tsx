@@ -111,6 +111,8 @@ export function KeyboardTester() {
     const [totalPresses, setTotalPresses] = React.useState(0);
     const [lastKey, setLastKey] = React.useState<string>('');
     const [lastKeyCode, setLastKeyCode] = React.useState<string>('');
+    const [lastKeyWhich, setLastKeyWhich] = React.useState<number>(0);
+    const [lastKeyLocation, setLastKeyLocation] = React.useState<number>(0);
 
     React.useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -119,6 +121,8 @@ export function KeyboardTester() {
             setActiveKey(code);
             setLastKey(e.key);
             setLastKeyCode(code);
+            setLastKeyWhich(e.which || e.keyCode);
+            setLastKeyLocation(e.location);
             setTotalPresses(p => p + 1);
 
             setTestedKeys(prev => {
@@ -160,6 +164,8 @@ export function KeyboardTester() {
         setTotalPresses(0);
         setLastKey('');
         setLastKeyCode('');
+        setLastKeyWhich(0);
+        setLastKeyLocation(0);
     };
 
     const testedCount = testedKeys.size;
@@ -259,12 +265,38 @@ export function KeyboardTester() {
                 </div>
             </Card>
 
-            {/* Key Info & Reset */}
+            {/* Key Event Details */}
+            {lastKeyCode && (
+                <Card className="p-4 bg-white border border-slate-200 shadow-sm">
+                    <h4 className="font-semibold text-slate-800 mb-3 flex items-center">
+                        <Info className="h-4 w-4 mr-2 text-indigo-500" />
+                        Key Event Details
+                    </h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">event.key</div>
+                            <div className="font-mono text-sm font-bold text-slate-800 truncate">{lastKey}</div>
+                        </div>
+                        <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">event.code</div>
+                            <div className="font-mono text-sm font-bold text-slate-800 truncate">{lastKeyCode}</div>
+                        </div>
+                        <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">event.which</div>
+                            <div className="font-mono text-sm font-bold text-slate-800">{lastKeyWhich}</div>
+                        </div>
+                        <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">event.location</div>
+                            <div className="font-mono text-sm font-bold text-slate-800">{lastKeyLocation}</div>
+                        </div>
+                    </div>
+                </Card>
+            )}
+
+            {/* Controls */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-sm text-slate-500">
-                    {lastKeyCode ? (
-                        <span>Last: <code className="bg-slate-100 px-2 py-0.5 rounded text-slate-700">{lastKey}</code> (code: <code className="bg-slate-100 px-2 py-0.5 rounded text-slate-700">{lastKeyCode}</code>)</span>
-                    ) : (
+                    {!lastKeyCode && (
                         <span className="text-slate-400">Press any key to begin testing...</span>
                     )}
                 </div>

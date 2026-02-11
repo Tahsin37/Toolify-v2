@@ -4,21 +4,37 @@ import * as React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
-    Timer, RotateCcw, Info, Trophy, Target, Zap, Clock
+    Timer, RotateCcw, Info, Trophy, Target, Zap, Clock, BarChart3
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const PARAGRAPHS = [
-    "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump. The five boxing wizards jump quickly at dawn.",
-    "Programming is the art of telling a computer what to do. Good code is its own best documentation. When you feel the need to write a comment, first try to refactor the code so that any comment becomes unnecessary.",
-    "The internet has revolutionized the way we communicate, learn, and work. From social media to cloud computing, technology continues to evolve at an unprecedented pace, shaping the future of our digital world.",
-    "Time management is the key to productivity. By setting clear goals, prioritizing tasks, and eliminating distractions, you can accomplish more in less time. Remember, every minute counts when building something great.",
-    "Artificial intelligence and machine learning are transforming industries across the globe. From healthcare to finance, these technologies offer powerful solutions that can analyze vast amounts of data and make predictions with remarkable accuracy.",
-    "The beauty of open source software lies in its collaborative nature. Developers from around the world contribute their skills and knowledge to create tools that benefit everyone. This spirit of sharing drives innovation forward.",
-    "Writing clean and maintainable code requires discipline and practice. Follow established patterns, use meaningful variable names, and always think about the developer who will read your code next. Simplicity is the ultimate sophistication.",
-    "The mountains towered above the valley, their snow-capped peaks glistening in the morning sun. A gentle breeze carried the scent of pine trees through the air, while birds sang their melodious songs from hidden perches in the forest canopy.",
-];
+const PARAGRAPHS: Record<string, string[]> = {
+    'Easy': [
+        "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump. The five boxing wizards jump quickly at dawn.",
+        "The sun was shining and the birds were singing. It was a beautiful day to go for a walk in the park. The flowers were blooming and the trees were green.",
+        "She went to the store to buy some milk and bread. The weather was nice so she decided to walk. On her way home she stopped to pet a friendly dog.",
+        "The cat sat on the mat and looked out the window. It was raining outside and the streets were wet. A red car drove by and splashed water on the sidewalk.",
+    ],
+    'Medium': [
+        "Programming is the art of telling a computer what to do. Good code is its own best documentation. When you feel the need to write a comment, first try to refactor the code so that any comment becomes unnecessary.",
+        "The internet has revolutionized the way we communicate, learn, and work. From social media to cloud computing, technology continues to evolve at an unprecedented pace, shaping the future of our digital world.",
+        "Time management is the key to productivity. By setting clear goals, prioritizing tasks, and eliminating distractions, you can accomplish more in less time. Remember, every minute counts when building something great.",
+        "The beauty of open source software lies in its collaborative nature. Developers from around the world contribute their skills and knowledge to create tools that benefit everyone. This spirit of sharing drives innovation forward.",
+        "Writing clean and maintainable code requires discipline and practice. Follow established patterns, use meaningful variable names, and always think about the developer who will read your code next. Simplicity is the ultimate sophistication.",
+        "The mountains towered above the valley, their snow-capped peaks glistening in the morning sun. A gentle breeze carried the scent of pine trees through the air, while birds sang their melodious songs from hidden perches in the forest canopy.",
+    ],
+    'Hard': [
+        "Artificial intelligence and machine learning are transforming industries across the globe. From healthcare to finance, these technologies offer powerful solutions that can analyze vast amounts of data and make predictions with remarkable accuracy.",
+        "The implementation of distributed consensus algorithms, such as Raft and Paxos, requires careful consideration of network partitions, Byzantine fault tolerance, and eventual consistency guarantees across heterogeneous compute clusters.",
+        "Quantum entanglement demonstrates that measuring one particle instantaneously affects its entangled counterpart, regardless of the distance separating them; Einstein famously referred to this phenomenon as \"spooky action at a distance.\"",
+        "The archaeological excavation revealed unprecedented artifacts: obsidian microliths, chryselephantine figurines, and cuneiform tablets describing Mesopotamian jurisprudence — findings that fundamentally reshape our understanding of Bronze Age civilization.",
+    ],
+};
+
+const DIFFICULTIES = Object.keys(PARAGRAPHS);
 
 const DURATIONS = [
+    { label: '15s', value: 15 },
     { label: '30s', value: 30 },
     { label: '60s', value: 60 },
     { label: '120s', value: 120 },
@@ -32,6 +48,7 @@ export function TypingTest() {
     const [isRunning, setIsRunning] = React.useState(false);
     const [isFinished, setIsFinished] = React.useState(false);
     const [startTime, setStartTime] = React.useState<number | null>(null);
+    const [difficulty, setDifficulty] = React.useState('Medium');
     const inputRef = React.useRef<HTMLTextAreaElement>(null);
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -40,9 +57,10 @@ export function TypingTest() {
         pickNewText();
     }, []);
 
-    const pickNewText = () => {
-        const idx = Math.floor(Math.random() * PARAGRAPHS.length);
-        setTargetText(PARAGRAPHS[idx]);
+    const pickNewText = (diff?: string) => {
+        const pool = PARAGRAPHS[diff || difficulty];
+        const idx = Math.floor(Math.random() * pool.length);
+        setTargetText(pool[idx]);
     };
 
     // Timer logic
@@ -94,6 +112,17 @@ export function TypingTest() {
         pickNewText();
         if (timerRef.current) clearTimeout(timerRef.current);
         inputRef.current?.focus();
+    };
+
+    const changeDifficulty = (newDifficulty: string) => {
+        setDifficulty(newDifficulty);
+        setTypedText('');
+        setIsRunning(false);
+        setIsFinished(false);
+        setTimeLeft(duration);
+        setStartTime(null);
+        pickNewText(newDifficulty);
+        if (timerRef.current) clearTimeout(timerRef.current);
     };
 
     const changeDuration = (newDuration: number) => {
@@ -172,7 +201,32 @@ export function TypingTest() {
 
     return (
         <div className="space-y-6">
-            {/* Duration & Timer */}
+            {/* Difficulty & Duration */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-slate-500" />
+                    <span className="text-sm text-slate-600 mr-1">Level:</span>
+                    {DIFFICULTIES.map(d => (
+                        <Button
+                            key={d}
+                            size="sm"
+                            variant={difficulty === d ? 'primary' : 'outline'}
+                            onClick={() => changeDifficulty(d)}
+                            disabled={isRunning}
+                            className={cn(
+                                difficulty === d
+                                    ? d === 'Easy' ? 'bg-emerald-600 hover:bg-emerald-700'
+                                        : d === 'Medium' ? 'bg-amber-600 hover:bg-amber-700'
+                                            : 'bg-rose-600 hover:bg-rose-700'
+                                    : ''
+                            )}
+                        >
+                            {d}
+                        </Button>
+                    ))}
+                </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-slate-500" />

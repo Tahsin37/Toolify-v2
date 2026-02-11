@@ -288,6 +288,19 @@ const FontPreviewer = dynamic(() => import('@/components/tools/preview/font-prev
     loading: () => <ToolLoading />,
 });
 
+const CsvPreviewer = dynamic(() => import('@/components/tools/preview/csv-previewer').then(mod => mod.CsvPreviewer), {
+    loading: () => <ToolLoading />,
+});
+
+const XlsxPreviewer = dynamic(() => import('@/components/tools/preview/xlsx-previewer').then(mod => mod.XlsxPreviewer), {
+    loading: () => <ToolLoading />,
+});
+
+const PdfPreviewer = dynamic(() => import('@/components/tools/preview/pdf-previewer').then(mod => mod.PdfPreviewer), {
+    loading: () => <ToolLoading />,
+    ssr: false, // PDF.js needs client-side only
+});
+
 // New Power Tools
 const QrReader = dynamic(() => import('@/components/tools/utility/qr-reader').then(mod => mod.QrReader), {
     loading: () => <ToolLoading />,
@@ -309,10 +322,6 @@ const ColorPaletteGenerator = dynamic(() => import('@/components/tools/utility/c
     loading: () => <ToolLoading />,
 });
 
-const TextToSpeech = dynamic(() => import('@/components/tools/utility/text-to-speech').then(mod => mod.TextToSpeech), {
-    loading: () => <ToolLoading />,
-});
-
 const FaviconGenerator = dynamic(() => import('@/components/tools/utility/favicon-generator').then(mod => mod.FaviconGenerator), {
     loading: () => <ToolLoading />,
 });
@@ -326,6 +335,30 @@ const KeyboardTester = dynamic(() => import('@/components/tools/utility/keyboard
 });
 
 const TypingTest = dynamic(() => import('@/components/tools/utility/typing-test').then(mod => mod.TypingTest), {
+    loading: () => <ToolLoading />,
+});
+
+const JsonPreviewer = dynamic(() => import('@/components/tools/preview/json-previewer').then(mod => mod.JsonPreviewer), {
+    loading: () => <ToolLoading />,
+});
+
+const MarkdownPreviewer = dynamic(() => import('@/components/tools/preview/markdown-previewer').then(mod => mod.MarkdownPreviewer), {
+    loading: () => <ToolLoading />,
+});
+
+const ImagePreviewer = dynamic(() => import('@/components/tools/preview/image-previewer').then(mod => mod.ImagePreviewer), {
+    loading: () => <ToolLoading />,
+});
+
+const JsonYamlConverter = dynamic(() => import('@/components/tools/converter/json-yaml-converter').then(mod => mod.JsonYamlConverter), {
+    loading: () => <ToolLoading />,
+});
+
+const SvgToPngConverter = dynamic(() => import('@/components/tools/converter/svg-to-png-converter').then(mod => mod.SvgToPngConverter), {
+    loading: () => <ToolLoading />,
+});
+
+const PdfToImageConverter = dynamic(() => import('@/components/tools/converter/pdf-to-image-converter').then(mod => mod.PdfToImageConverter), {
     loading: () => <ToolLoading />,
 });
 
@@ -433,6 +466,8 @@ export function ToolRenderer({ slug }: { slug: string }) {
             return <XmlToJson />;
         case 'json-to-xml':
             return <JsonToXml />;
+        case 'json-to-yaml':
+            return <JsonYamlConverter />;
 
         // Utility Tools
         case 'zip-creator':
@@ -477,12 +512,28 @@ export function ToolRenderer({ slug }: { slug: string }) {
             return <CsvToXlsx />;
         case 'xlsx-to-csv':
             return <XlsxToCsv />;
+        case 'svg-to-png':
+            return <SvgToPngConverter />;
+        case 'pdf-to-image':
+            return <PdfToImageConverter />;
 
         // Preview Tools
         case '3d-model-viewer':
             return <ThreeDViewer />;
         case 'font-previewer':
             return <FontPreviewer />;
+        case 'csv-previewer':
+            return <CsvPreviewer />;
+        case 'xlsx-previewer':
+            return <XlsxPreviewer />;
+        case 'pdf-previewer':
+            return <PdfPreviewer />;
+        case 'json-previewer':
+            return <JsonPreviewer />;
+        case 'markdown-previewer':
+            return <MarkdownPreviewer />;
+        case 'image-previewer':
+            return <ImagePreviewer />;
 
         // New Power Tools
         case 'qr-reader':
@@ -495,8 +546,6 @@ export function ToolRenderer({ slug }: { slug: string }) {
             return <LoremGenerator />;
         case 'color-palette':
             return <ColorPaletteGenerator />;
-        case 'text-to-speech':
-            return <TextToSpeech />;
         case 'favicon-generator':
             return <FaviconGenerator />;
         case 'pdf-merger':

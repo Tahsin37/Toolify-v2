@@ -35,7 +35,7 @@ export function ToolCard({ slug, name, description, category, iconName = 'Box', 
     return (
         <Link href={`/tools/${slug}`} className="block h-full">
             <div
-                className="group relative h-full bg-white rounded-2xl p-6 border border-slate-100 tool-card-hover flex flex-col"
+                className="group relative h-full bg-white rounded-2xl p-5 md:p-6 border border-slate-100 tool-card-hover flex flex-col min-h-[160px] md:min-h-[180px]"
             >
                 {isPopular && (
                     <div className="absolute top-4 right-4">
@@ -46,20 +46,20 @@ export function ToolCard({ slug, name, description, category, iconName = 'Box', 
                     </div>
                 )}
 
-                <div className="mb-6">
-                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${iconColorClass} mb-4 transition-transform group-hover:scale-110 duration-300`}>
-                        <IconComponent className="h-6 w-6" />
+                <div className="mb-4 md:mb-6">
+                    <div className={`h-11 w-11 md:h-12 md:w-12 rounded-xl flex items-center justify-center ${iconColorClass} mb-3 md:mb-4 transition-transform group-hover:scale-110 duration-300`}>
+                        <IconComponent className="h-5 w-5 md:h-6 md:w-6" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-base md:text-lg font-bold text-slate-900 mb-1.5 md:mb-2 leading-tight group-hover:text-indigo-600 transition-colors">
                         {name}
                     </h3>
-                    <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">
+                    <p className="text-xs md:text-sm text-slate-500 leading-relaxed line-clamp-2">
                         {description}
                     </p>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
-                    <Badge variant="secondary" className="bg-slate-50 text-slate-600 font-medium px-2.5 py-1 rounded-md">
+                <div className="mt-auto pt-3 md:pt-4 border-t border-slate-50 flex items-center justify-between">
+                    <Badge variant="secondary" className="bg-slate-50 text-slate-600 font-medium px-2 md:px-2.5 py-1 rounded-md text-xs">
                         {category}
                     </Badge>
                     <div className="text-indigo-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">

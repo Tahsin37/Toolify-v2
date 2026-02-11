@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Command, Zap, Search, Heart } from 'lucide-react';
+import { Menu, X, Command, Zap, Search, Heart, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllTools } from '@/lib/tools';
@@ -181,6 +181,11 @@ export function Header() {
                     ))}
                     <div className="w-px h-6 bg-slate-200 mx-2" />
 
+                    {/* GitHub Button */}
+                    <Link href="https://github.com/Tahsin37/Toolify-v2" target="_blank" className="hidden lg:flex items-center justify-center h-10 w-10 rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-all">
+                        <Github className="h-5 w-5" />
+                    </Link>
+
                     {/* Donation Button with Animation */}
                     <Link href="/donate">
                         <motion.button
@@ -278,6 +283,12 @@ export function Header() {
                                 </Link>
                             ))}
                             <div className="pt-4 mt-2 border-t border-slate-100 space-y-2">
+                                <Link href="https://github.com/Tahsin37/Toolify-v2" target="_blank" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <Button variant="outline" className="w-full justify-center rounded-xl h-11 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+                                        <Github className="h-4 w-4 mr-2" />
+                                        Star on GitHub
+                                    </Button>
+                                </Link>
                                 <Link href="/donate" onClick={() => setIsMobileMenuOpen(false)}>
                                     <Button className="w-full justify-center rounded-xl h-11 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600">
                                         <Heart className="h-4 w-4 mr-2 fill-current" />
