@@ -333,6 +333,4 @@ If you find this project useful, please consider giving it a star ⭐
 [Live Demo](https://your-domain.com) • [Report Bug](https://github.com/yourusername/seo-tools-platform/issues) • [Request Feature](https://github.com/yourusername/seo-tools-platform/issues)
 
 </div>
-#   T o o l i f y - v 2 
- 
- 
+#
