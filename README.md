@@ -1,6 +1,6 @@
 # 🛠️ SEO Tools Platform
 
-A comprehensive collection of **70+ professional-grade tools** for SEO optimization, content creation, development, and digital productivity. All tools run 100% in your browser with zero data transmission to servers.
+A comprehensive collection of **76+ professional-grade tools** for SEO optimization, content creation, development, and digital productivity. All tools run 100% in your browser with zero data transmission to servers.
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
@@ -88,14 +88,16 @@ Analyze and understand web pages and HTTP traffic.
 - **HTTP Header Viewer** - Inspect HTTP request/response headers
 - **User Agent Parser** - Parse and analyze user agent strings
 
-### 🔄 Converter Tools (19)
+### 🔄 Converter Tools (22)
 Convert between various file formats seamlessly.
 
 **Document Converters:**
 - DOC to PDF Converter
 - PDF to Word Converter (with preview)
 - CSV to Excel Converter
+- CSV to Excel Converter
 - Excel to CSV Converter
+- PDF to Image Converter (with ZIP support)
 
 **Audio/Video Converters:**
 - Audio Converter (MP3, WAV, OGG, AAC, FLAC)
@@ -105,12 +107,15 @@ Convert between various file formats seamlessly.
 - PNG to JPG / JPG to PNG
 - Image to WebP / WebP to PNG
 - Image Resizer & Compressor
+- Image Resizer & Compressor
 - Image to Base64
+- SVG to PNG Converter
 
 **Data Converters:**
 - CSV ↔ JSON
 - Markdown ↔ HTML
 - XML ↔ JSON
+- JSON ↔ YAML
 
 ### 🛠️ Utility Tools (18)
 Miscellaneous productivity and utility tools.
@@ -133,11 +138,14 @@ Miscellaneous productivity and utility tools.
 - **Favicon Generator** - Create favicons from images
 - **PDF Merger** - Combine multiple PDFs into one
 
-### 👁️ File Preview Tools (2)
+### 👁️ File Preview Tools (5)
 View and preview various file formats.
 
 - **3D Model Viewer** - View OBJ, STL, GLTF/GLB 3D models
 - **Font Previewer** - Preview 31+ Google Fonts with character map
+- **JSON Previewer** - Interactive tree view explorer for JSON files
+- **Markdown Previewer** - Split-view editor with live HTML preview
+- **Image Previewer** - Zoom, pan, and rotate images (JPG, PNG, SVG)
 
 ---
 
@@ -276,15 +284,14 @@ case 'my-new-tool':
 
 ## 🌟 Recent Updates
 
-### v1.2.0 (Latest)
-- ⭐ **NEW**: Keyboard Tester - Test all 146 keys with visual feedback
-- ⭐ **NEW**: Typing Speed Test - Measure WPM and typing accuracy
-- 🎨 Expanded Font Previewer to 31 fonts (sans-serif, serif, display, monospace)
-- 🔧 Added PDF preview button to PDF-to-DOC converter
-- 🛡️ Enhanced error handling for password-protected PDFs
-- 📝 Added 80+ unique SEO-optimized tool descriptions
-- 🐛 Fixed 15 TypeScript errors and build issues
-- 🎯 Improved hashtag validation with gibberish detection
+### v2.0.0 (Platform Overhaul)
+- 🚀 **6 New Power Tools**:
+  - **Converters**: JSON↔YAML, SVG→PNG, PDF→Image (bulk export)
+  - **Previewers**: JSON Tree Viewer, Markdown Live Preview, Image Inspector
+- ⚡ **Enhanced Utilities**: Typing Speed Test (Difficulty levels), Keyboard Tester (Event logging)
+- 🎨 **Social Media Data**: Trending hashtags & bio templates now pre-loaded
+- �️ **Critical Fixes**: Fixed PDF previewer errors, improved Mobile UI, fixed Button variants
+- � **SEO Upgrade**: Comprehensive metadata audit and sitemap optimization
 
 ---
 
@@ -326,5 +333,6 @@ If you find this project useful, please consider giving it a star ⭐
 [Live Demo](https://your-domain.com) • [Report Bug](https://github.com/yourusername/seo-tools-platform/issues) • [Request Feature](https://github.com/yourusername/seo-tools-platform/issues)
 
 </div>
-#   T o o l i f y - v 2  
+#   T o o l i f y - v 2 
+ 
  
