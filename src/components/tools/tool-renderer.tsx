@@ -362,6 +362,16 @@ const PdfToImageConverter = dynamic(() => import('@/components/tools/converter/p
     loading: () => <ToolLoading />,
 });
 
+const VideoToGif = dynamic(() => import('@/components/tools/converter/video-to-gif').then(mod => mod.VideoToGif), {
+    loading: () => <ToolLoading />,
+    ssr: false, // ffmpeg uses browser APIs
+});
+
+const GifToVideo = dynamic(() => import('@/components/tools/converter/gif-to-video').then(mod => mod.GifToVideo), {
+    loading: () => <ToolLoading />,
+    ssr: false, // ffmpeg uses browser APIs
+});
+
 // Component to render individual tools
 export function ToolRenderer({ slug }: { slug: string }) {
     switch (slug) {
@@ -516,6 +526,10 @@ export function ToolRenderer({ slug }: { slug: string }) {
             return <SvgToPngConverter />;
         case 'pdf-to-image':
             return <PdfToImageConverter />;
+        case 'video-to-gif':
+            return <VideoToGif />;
+        case 'gif-to-video':
+            return <GifToVideo />;
 
         // Preview Tools
         case '3d-model-viewer':

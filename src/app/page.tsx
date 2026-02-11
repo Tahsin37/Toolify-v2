@@ -27,12 +27,12 @@ export default function Home() {
 
     // Popular tools - featuring most useful everyday tools
     const popularSlugs = [
-        'text-to-speech',
-        'power-zip-creator',
-        'image-compressor',
-        'qr-generator',
-        'qr-reader',
-        'doc-to-pdf'
+        'video-to-gif',
+        'json-formatter-validator',
+        'remove-duplicate-lines',
+        'word-counter',
+        'image-to-webp',
+        'pdf-to-doc'
     ];
     const popularTools = allTools.filter(t => popularSlugs.includes(t.slug));
     const otherTools = allTools.filter(t => !popularSlugs.includes(t.slug));

@@ -93,6 +93,8 @@ export const TOOL_REGISTRY = {
             // Audio/Video Converters
             { id: 'power-audio-converter', name: 'Audio Converter', slug: 'power-audio-converter' },
             { id: 'video-to-mp3', name: 'Video to MP3', slug: 'video-to-mp3' },
+            { id: 'video-to-gif', name: 'Video to GIF Converter', slug: 'video-to-gif' },
+            { id: 'gif-to-video', name: 'GIF to Video Converter', slug: 'gif-to-video' },
             // Image Converters
             { id: 'png-to-jpg', name: 'PNG to JPG Converter', slug: 'png-to-jpg' },
             { id: 'jpg-to-png', name: 'JPG to PNG Converter', slug: 'jpg-to-png' },

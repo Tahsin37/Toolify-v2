@@ -351,6 +351,28 @@ export const TOOL_SEO_METADATA: Record<string, ToolSEO> = {
             { question: 'What is a user agent?', answer: 'A user agent string identifies the browser, operating system, and device making a request to a web server.' },
             { question: 'Can user agents be spoofed?', answer: 'Yes, user agents can be changed by users or extensions, so they should not be trusted for security.' }
         ]
+    },
+    'video-to-gif': {
+        title: 'Video to GIF Converter - Convert MP4 to GIF Online | Free Tool',
+        description: 'Free Video to GIF Converter. Convert MP4, WebM, MOV to animated GIF in your browser. High quality, no watermark, secure client-side processing.',
+        keywords: ['video to gif', 'mp4 to gif', 'convert video to gif', 'video converter', 'free gif maker'],
+        h1: 'Video to GIF Converter',
+        h2: 'Convert Video to Animated GIF',
+        faq: [
+            { question: 'Is it free to use?', answer: 'Yes, this tool is 100% free and processes files locally in your browser.' },
+            { question: 'What formats are supported?', answer: 'We support MP4, WebM, MOV, AVI, and other common video formats.' }
+        ]
+    },
+    'gif-to-video': {
+        title: 'GIF to Video Converter - Convert GIF to MP4 Online | Free Tool',
+        description: 'Free GIF to Video Converter. Convert animated GIFs to MP4 video for Instagram, TikTok, and WhatsApp. Fast, secure, and high quality.',
+        keywords: ['gif to video', 'gif to mp4', 'convert gif to video', 'gif converter', 'video maker'],
+        h1: 'GIF to Video Converter',
+        h2: 'Convert GIF to MP4 Video',
+        faq: [
+            { question: 'Why convert GIF to video?', answer: 'Videos (MP4) are smaller in size and supported by platforms like Instagram that do not support GIFs directly.' },
+            { question: 'Is the conversion secure?', answer: 'Yes, all processing happens in your browser. Your files are never uploaded to any server.' }
+        ]
     }
 } as const;
 
