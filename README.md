@@ -147,6 +147,8 @@ View and preview various file formats.
 - **Markdown Previewer** - Split-view editor with live HTML preview
 - **Image Previewer** - Zoom, pan, and rotate images (JPG, PNG, SVG)
 
+<a href="https://www.producthunt.com/products/toolify-5?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-toolify-6" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1077924&theme=light" alt="Toolify - 75+ powerful tools. One platform. Zero friction. | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 ---
 
 ## 🎨 Key Features
