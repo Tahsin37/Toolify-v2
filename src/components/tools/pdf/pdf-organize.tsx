@@ -174,7 +174,7 @@ export function PdfOrganize() {
             {/* Upload */}
             {!file && (
                 <Card
-                    className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-purple-500 bg-purple-50' : 'border-slate-300 hover:border-purple-400 bg-white'
+                    className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                         }`}
                     onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                     onDragLeave={() => setDragOver(false)}
@@ -188,7 +188,7 @@ export function PdfOrganize() {
                         className="hidden"
                         onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                     />
-                    <LayoutGrid className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+                    <LayoutGrid className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                     <p className="text-lg font-semibold text-slate-800 mb-1">Drop your PDF here</p>
                     <p className="text-sm text-slate-500">or click to browse</p>
                 </Card>
@@ -197,7 +197,7 @@ export function PdfOrganize() {
             {/* Loading */}
             {loading && (
                 <Card className="p-8 text-center bg-white border border-slate-200">
-                    <Loader2 className="h-10 w-10 text-purple-600 animate-spin mx-auto mb-4" />
+                    <Loader2 className="h-10 w-10 text-indigo-600 animate-spin mx-auto mb-4" />
                     <p className="text-slate-600">Generating page thumbnails...</p>
                 </Card>
             )}
@@ -240,10 +240,10 @@ export function PdfOrganize() {
                                 onDragEnd={handlePageDragEnd}
                                 onClick={() => toggleSelect(i)}
                                 className={`relative group cursor-grab active:cursor-grabbing rounded-lg border-2 transition-all ${page.selected
-                                        ? 'border-purple-500 ring-2 ring-purple-200'
-                                        : draggedIndex === i
-                                            ? 'border-purple-400 opacity-50'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                    ? 'border-indigo-500 ring-2 ring-indigo-200'
+                                    : draggedIndex === i
+                                        ? 'border-indigo-400 opacity-50'
+                                        : 'border-slate-200 hover:border-slate-300'
                                     }`}
                             >
                                 {/* Thumbnail */}
@@ -285,7 +285,7 @@ export function PdfOrganize() {
 
                                 {/* Selection indicator */}
                                 {page.selected && (
-                                    <div className="absolute inset-0 bg-purple-500/10 rounded-lg pointer-events-none" />
+                                    <div className="absolute inset-0 bg-indigo-500/10 rounded-lg pointer-events-none" />
                                 )}
                             </div>
                         ))}
@@ -294,7 +294,7 @@ export function PdfOrganize() {
                     <Button
                         onClick={savePDF}
                         disabled={processing || pages.length === 0}
-                        className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white"
+                        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         {processing ? (
                             <>

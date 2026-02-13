@@ -1,28 +1,26 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { PDFDocument } from 'pdf-lib';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Upload, Download, Lock, Eye, EyeOff, Loader2, Info, Shield } from 'lucide-react';
+import { Lock, Eye, EyeOff, Loader2, Info, Shield, CheckCircle } from 'lucide-react';
 
 export function PdfProtect() {
     const [file, setFile] = useState<File | null>(null);
     const [processing, setProcessing] = useState(false);
+    const [done, setDone] = useState(false);
     const [userPassword, setUserPassword] = useState('');
     const [ownerPassword, setOwnerPassword] = useState('');
     const [showUserPass, setShowUserPass] = useState(false);
     const [showOwnerPass, setShowOwnerPass] = useState(false);
-    const [permissions, setPermissions] = useState({
-        printing: true,
-        copying: false,
-        modifying: false,
-    });
     const [dragOver, setDragOver] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleFile = useCallback((f: File) => {
         if (f.type === 'application/pdf') {
             setFile(f);
+            setDone(false);
+            setError(null);
         }
     }, []);
 
@@ -36,32 +34,33 @@ export function PdfProtect() {
     const protectPDF = async () => {
         if (!file || !userPassword) return;
         setProcessing(true);
+        setError(null);
 
         try {
-            const arrayBuffer = await file.arrayBuffer() as ArrayBuffer;
-            const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+            // Dynamically import the encryption library
+            const { encryptPDF } = await import('@pdfsmaller/pdf-encrypt-lite');
 
-            (pdfDoc as any).encrypt({
+            const arrayBuffer = await file.arrayBuffer();
+            const pdfBytes = new Uint8Array(arrayBuffer);
+
+            // Use real RC4 128-bit encryption
+            const encryptedBytes = await encryptPDF(
+                pdfBytes,
                 userPassword,
-                ownerPassword: ownerPassword || userPassword,
-                permissions: {
-                    printing: permissions.printing ? 'highResolution' : undefined,
-                    copying: permissions.copying,
-                    modifying: permissions.modifying,
-                },
-            });
+                ownerPassword || userPassword // Default owner password to user password
+            );
 
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes as any], { type: 'application/pdf' });
+            const blob = new Blob([encryptedBytes as BlobPart], { type: 'application/pdf' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = `protected-${file.name}`;
             a.click();
             URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Error protecting PDF:', error);
-            alert('Failed to protect PDF. The file may already be encrypted.');
+            setDone(true);
+        } catch (err: any) {
+            console.error('Error protecting PDF:', err);
+            setError(err.message || 'Failed to protect PDF. Please try a different file.');
         }
 
         setProcessing(false);
@@ -71,7 +70,7 @@ export function PdfProtect() {
         <div className="space-y-6">
             {/* Upload */}
             <Card
-                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-amber-500 bg-amber-50' : 'border-slate-300 hover:border-amber-400 bg-white'
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -85,7 +84,7 @@ export function PdfProtect() {
                     className="hidden"
                     onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 />
-                <Shield className="h-12 w-12 text-amber-400 mx-auto mb-4" />
+                <Shield className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">
                     {file ? file.name : 'Drop your PDF here'}
                 </p>
@@ -98,7 +97,7 @@ export function PdfProtect() {
             {file && (
                 <Card className="p-5 bg-white border border-slate-200">
                     <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center">
-                        <Lock className="h-4 w-4 mr-2 text-amber-500" />
+                        <Lock className="h-4 w-4 mr-2 text-indigo-500" />
                         Password Settings
                     </h3>
 
@@ -124,7 +123,7 @@ export function PdfProtect() {
                         </div>
 
                         <div>
-                            <label className="text-xs text-slate-500 block mb-1">Owner Password (optional, for permissions)</label>
+                            <label className="text-xs text-slate-500 block mb-1">Owner Password (optional, for full access)</label>
                             <div className="relative">
                                 <input
                                     type={showOwnerPass ? 'text' : 'password'}
@@ -142,33 +141,25 @@ export function PdfProtect() {
                                 </button>
                             </div>
                         </div>
-
-                        <div>
-                            <label className="text-xs text-slate-500 block mb-2">Permissions</label>
-                            <div className="space-y-2">
-                                {[
-                                    { key: 'printing', label: 'Allow Printing' },
-                                    { key: 'copying', label: 'Allow Copying Text' },
-                                    { key: 'modifying', label: 'Allow Modifying' },
-                                ].map(({ key, label }) => (
-                                    <label key={key} className="flex items-center gap-2 text-sm text-slate-700">
-                                        <input
-                                            type="checkbox"
-                                            checked={permissions[key as keyof typeof permissions]}
-                                            onChange={(e) => setPermissions((p) => ({ ...p, [key]: e.target.checked }))}
-                                            className="rounded border-slate-300"
-                                        />
-                                        {label}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
                     </div>
+
+                    {error && (
+                        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                            {error}
+                        </div>
+                    )}
+
+                    {done && (
+                        <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-700 flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4" />
+                            PDF protected and downloaded successfully!
+                        </div>
+                    )}
 
                     <Button
                         onClick={protectPDF}
                         disabled={processing || !userPassword}
-                        className="w-full mt-4 bg-amber-600 hover:bg-amber-700 text-white"
+                        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         {processing ? (
                             <>
@@ -191,9 +182,8 @@ export function PdfProtect() {
                     <div>
                         <h4 className="font-semibold text-blue-800 mb-1">PDF Protection</h4>
                         <p className="text-sm text-blue-700">
-                            Add password protection to your PDF files. Set user and owner passwords,
-                            and control permissions for printing, copying, and modifying.
-                            Encryption happens entirely in your browser.
+                            Add real RC4 128-bit password encryption to your PDF. Set a user password to restrict opening
+                            and an optional owner password for full access. All processing happens in your browser.
                         </p>
                     </div>
                 </div>

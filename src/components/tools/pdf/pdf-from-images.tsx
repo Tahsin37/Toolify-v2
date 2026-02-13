@@ -175,7 +175,7 @@ export function PdfFromImages() {
                     className="hidden"
                     onChange={(e) => e.target.files && handleFiles(e.target.files)}
                 />
-                <Image className="h-12 w-12 text-indigo-400 mx-auto mb-4" />
+                <Image className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">Drop images here</p>
                 <p className="text-sm text-slate-500">JPG, PNG, WebP — drag multiple files or click to browse</p>
             </Card>

@@ -115,7 +115,7 @@ export function PdfPageNumbers() {
         <div className="space-y-6">
             {/* Upload */}
             <Card
-                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-violet-500 bg-violet-50' : 'border-slate-300 hover:border-violet-400 bg-white'
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -129,7 +129,7 @@ export function PdfPageNumbers() {
                     className="hidden"
                     onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 />
-                <Hash className="h-12 w-12 text-violet-400 mx-auto mb-4" />
+                <Hash className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">
                     {file ? file.name : 'Drop your PDF here'}
                 </p>
@@ -207,7 +207,7 @@ export function PdfPageNumbers() {
                     <Button
                         onClick={addPageNumbers}
                         disabled={processing}
-                        className="w-full bg-violet-600 hover:bg-violet-700 text-white"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         {processing ? (
                             <>

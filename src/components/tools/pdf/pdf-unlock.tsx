@@ -86,7 +86,7 @@ export function PdfUnlock() {
         <div className="space-y-6">
             {/* Upload */}
             <Card
-                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-emerald-500 bg-emerald-50' : 'border-slate-300 hover:border-emerald-400 bg-white'
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -100,7 +100,7 @@ export function PdfUnlock() {
                     className="hidden"
                     onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 />
-                <ShieldOff className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+                <ShieldOff className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">
                     {file ? file.name : 'Drop your protected PDF here'}
                 </p>
@@ -113,7 +113,7 @@ export function PdfUnlock() {
             {file && (
                 <Card className="p-5 bg-white border border-slate-200">
                     <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center">
-                        <Unlock className="h-4 w-4 mr-2 text-emerald-500" />
+                        <Unlock className="h-4 w-4 mr-2 text-indigo-500" />
                         Enter PDF Password
                     </h3>
 
@@ -150,7 +150,7 @@ export function PdfUnlock() {
                     <Button
                         onClick={unlockPDF}
                         disabled={processing}
-                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         {processing ? (
                             <>

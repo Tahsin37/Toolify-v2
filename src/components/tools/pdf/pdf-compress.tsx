@@ -87,7 +87,7 @@ export function PdfCompress() {
         <div className="space-y-6">
             {/* Upload Area */}
             <Card
-                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-red-500 bg-red-50' : 'border-slate-300 hover:border-red-400 bg-white'
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -101,7 +101,7 @@ export function PdfCompress() {
                     className="hidden"
                     onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 />
-                <Upload className="h-12 w-12 text-red-400 mx-auto mb-4" />
+                <Upload className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">
                     {file ? file.name : 'Drop your PDF here'}
                 </p>
@@ -115,7 +115,7 @@ export function PdfCompress() {
                 <Button
                     onClick={compressPDF}
                     disabled={processing}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 text-lg"
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 text-lg"
                 >
                     {processing ? (
                         <>

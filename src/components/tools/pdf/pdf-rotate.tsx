@@ -1,34 +1,40 @@
 'use client';
 
 import React, { useState } from 'react';
-import { PDFDocument, RotationTypes } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Upload, Download, File, RotateCw, Loader2, RefreshCw } from 'lucide-react';
+import { Download, RotateCw, Loader2, Info, RefreshCw } from 'lucide-react';
 
 export function PdfRotate() {
     const [file, setFile] = useState<File | null>(null);
     const [pageCount, setPageCount] = useState<number>(0);
-    const [rotation, setRotation] = useState<number>(0); // 0, 90, 180, 270
+    const [rotation, setRotation] = useState<number>(0);
     const [processing, setProcessing] = useState(false);
     const [resultUrl, setResultUrl] = useState<string | null>(null);
+    const [dragOver, setDragOver] = useState(false);
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = e.target.files?.[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-            setResultUrl(null);
-            setRotation(0);
-            try {
-                const arrayBuffer = await selectedFile.arrayBuffer();
-                const pdf = await PDFDocument.load(arrayBuffer);
-                setPageCount(pdf.getPageCount());
-            } catch (err) {
-                console.error('Error loading PDF:', err);
-                alert('Invalid or encrypted PDF file.');
-                setFile(null);
-            }
+    const handleFile = async (f: File) => {
+        if (f.type !== 'application/pdf') return;
+        setFile(f);
+        setResultUrl(null);
+        setRotation(0);
+        try {
+            const arrayBuffer = await f.arrayBuffer();
+            const pdf = await PDFDocument.load(arrayBuffer);
+            setPageCount(pdf.getPageCount());
+        } catch (err) {
+            console.error('Error loading PDF:', err);
+            alert('Invalid or encrypted PDF file.');
+            setFile(null);
         }
+    };
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        setDragOver(false);
+        const f = e.dataTransfer.files[0];
+        if (f) handleFile(f);
     };
 
     const rotatePDF = async () => {
@@ -58,104 +64,107 @@ export function PdfRotate() {
     };
 
     return (
-        <div className="space-y-6 max-w-2xl mx-auto">
-            <div className="text-center space-y-2">
-                <h1 className="text-3xl font-bold text-slate-900">Rotate PDF</h1>
-                <p className="text-slate-500">Rotate all pages in your PDF file permanently.</p>
-            </div>
+        <div className="space-y-6">
+            {/* Drop Zone */}
+            <Card
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
+                    }`}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('pdf-rotate-input')?.click()}
+            >
+                <input
+                    id="pdf-rotate-input"
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
+                />
+                <RotateCw className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+                <p className="text-lg font-semibold text-slate-800 mb-1">
+                    {file ? file.name : 'Drop your PDF here'}
+                </p>
+                <p className="text-sm text-slate-500">
+                    {file ? `${pageCount} pages • ${(file.size / 1024 / 1024).toFixed(2)} MB` : 'or click to browse'}
+                </p>
+            </Card>
 
-            <Card className="p-8 border-dashed border-2 bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                {!file ? (
-                    <div className="flex flex-col items-center justify-center space-y-4">
-                        <div className="p-4 bg-orange-100 rounded-full">
-                            <RotateCw className="w-8 h-8 text-orange-600" />
-                        </div>
-                        <div>
-                            <input
-                                type="file"
-                                accept=".pdf"
-                                onChange={handleFileChange}
-                                className="hidden"
-                                id="pdf-upload"
-                            />
-                            <label
-                                htmlFor="pdf-upload"
-                                className="cursor-pointer inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-                            >
-                                <Upload className="mr-2 h-5 w-5" />
-                                Select PDF File
-                            </label>
-                        </div>
+            {/* Settings */}
+            {file && (
+                <Card className="p-5 bg-white border border-slate-200">
+                    <h3 className="text-sm font-semibold text-slate-800 mb-4">Rotation Options</h3>
+
+                    <div className="flex justify-center gap-3 mb-4">
+                        <Button
+                            variant={rotation === 90 ? 'primary' : 'outline'}
+                            onClick={() => setRotation(90)}
+                            className={rotation === 90 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : ''}
+                        >
+                            <RotateCw className="mr-2 h-4 w-4" /> 90° CW
+                        </Button>
+                        <Button
+                            variant={rotation === 180 ? 'primary' : 'outline'}
+                            onClick={() => setRotation(180)}
+                            className={rotation === 180 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : ''}
+                        >
+                            <RotateCw className="mr-2 h-4 w-4" /> 180°
+                        </Button>
+                        <Button
+                            variant={rotation === 270 ? 'primary' : 'outline'}
+                            onClick={() => setRotation(270)}
+                            className={rotation === 270 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : ''}
+                        >
+                            <RotateCw className="mr-2 h-4 w-4" /> 270° CCW
+                        </Button>
                     </div>
-                ) : (
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between p-4 bg-white rounded-lg border">
-                            <div className="flex items-center space-x-3">
-                                <File className="w-6 h-6 text-orange-500" />
-                                <div>
-                                    <p className="font-medium text-slate-900">{file.name}</p>
-                                    <p className="text-xs text-slate-500">{pageCount} pages • {(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                                </div>
-                            </div>
-                            <Button variant="ghost" size="sm" onClick={() => { setFile(null); setResultUrl(null); }}>
-                                Change
-                            </Button>
-                        </div>
 
-                        <div className="flex justify-center gap-4">
-                            <Button
-                                variant={rotation === 90 ? 'primary' : 'outline'}
-                                onClick={() => setRotation(90)}
-                            >
-                                <RotateCw className="mr-2 h-4 w-4" /> 90° Clockwise
-                            </Button>
-                            <Button
-                                variant={rotation === 180 ? 'primary' : 'outline'}
-                                onClick={() => setRotation(180)}
-                            >
-                                <RotateCw className="mr-2 h-4 w-4" /> 180°
-                            </Button>
-                            <Button
-                                variant={rotation === 270 ? 'primary' : 'outline'}
-                                onClick={() => setRotation(270)}
-                            >
-                                <RotateCw className="mr-2 h-4 w-4" /> 270° Counter-Clockwise
-                            </Button>
-                        </div>
-
-                        {!resultUrl ? (
-                            <Button
-                                onClick={rotatePDF}
-                                disabled={processing || rotation === 0}
-                                className="w-full h-12 bg-orange-600 hover:bg-orange-700"
-                            >
-                                {processing ? (
-                                    <>
-                                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                        Rotating...
-                                    </>
-                                ) : (
-                                    <>
-                                        <RefreshCw className="mr-2 h-5 w-5" />
-                                        Apply Rotation
-                                    </>
-                                )}
-                            </Button>
-                        ) : (
-                            <div className="flex gap-4">
-                                <a href={resultUrl} download="rotated.pdf" className="w-full">
-                                    <Button className="w-full h-12 bg-green-600 hover:bg-green-700">
-                                        <Download className="mr-2 h-5 w-5" />
-                                        Download Rotated PDF
-                                    </Button>
-                                </a>
-                                <Button variant="outline" onClick={() => { setFile(null); setResultUrl(null); }}>
-                                    Start Over
+                    {!resultUrl ? (
+                        <Button
+                            onClick={rotatePDF}
+                            disabled={processing || rotation === 0}
+                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                        >
+                            {processing ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                    Rotating...
+                                </>
+                            ) : (
+                                <>
+                                    <RefreshCw className="h-4 w-4 mr-2" />
+                                    Apply Rotation
+                                </>
+                            )}
+                        </Button>
+                    ) : (
+                        <div className="flex gap-3">
+                            <a href={resultUrl} download="rotated.pdf" className="flex-1">
+                                <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Download Rotated PDF
                                 </Button>
-                            </div>
-                        )}
+                            </a>
+                            <Button variant="outline" onClick={() => { setFile(null); setResultUrl(null); }}>
+                                Start Over
+                            </Button>
+                        </div>
+                    )}
+                </Card>
+            )}
+
+            {/* Info */}
+            <Card className="p-4 bg-blue-50 border border-blue-200">
+                <div className="flex items-start gap-2">
+                    <Info className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                        <h4 className="font-semibold text-blue-800 mb-1">Rotate PDF</h4>
+                        <p className="text-sm text-blue-700">
+                            Rotate all pages in your PDF file permanently. Choose 90°, 180°, or 270° rotation.
+                            All processing happens locally in your browser.
+                        </p>
                     </div>
-                )}
+                </div>
             </Card>
         </div>
     );

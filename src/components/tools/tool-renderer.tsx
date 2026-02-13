@@ -262,12 +262,12 @@ const PowerZipCreator = dynamic(() => import('@/components/tools/converter/power
     loading: () => <ToolLoading />,
 });
 
-const DocToPdf = dynamic(() => import('@/components/tools/converter/doc-to-pdf').then(mod => mod.DocToPdf), {
+const DocToPdf = dynamic(() => import('@/components/tools/converter/word-to-pdf-converter').then(mod => mod.WordToPdfConverter), {
     loading: () => <ToolLoading />,
     ssr: false
 });
 
-const PdfToDoc = dynamic(() => import('@/components/tools/converter/pdf-to-doc').then(mod => mod.PdfToDoc), {
+const PdfToDoc = dynamic(() => import('@/components/tools/converter/pdf-to-word-converter').then(mod => mod.PdfToWordConverter), {
     loading: () => <ToolLoading />,
     ssr: false
 });

@@ -107,7 +107,7 @@ export function PdfWatermark() {
         <div className="space-y-6">
             {/* Upload */}
             <Card
-                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-teal-500 bg-teal-50' : 'border-slate-300 hover:border-teal-400 bg-white'
+                className={`p-10 border-2 border-dashed text-center cursor-pointer transition-all ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 hover:border-indigo-400 bg-white'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -121,7 +121,7 @@ export function PdfWatermark() {
                     className="hidden"
                     onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 />
-                <Droplets className="h-12 w-12 text-teal-400 mx-auto mb-4" />
+                <Droplets className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-slate-800 mb-1">
                     {file ? file.name : 'Drop your PDF here'}
                 </p>
@@ -205,7 +205,7 @@ export function PdfWatermark() {
                                 step={0.01}
                                 value={opacity}
                                 onChange={(e) => setOpacity(Number(e.target.value))}
-                                className="w-full accent-teal-600"
+                                className="w-full accent-indigo-600"
                             />
                         </div>
 
@@ -229,7 +229,7 @@ export function PdfWatermark() {
                     <Button
                         onClick={addWatermark}
                         disabled={processing || !text.trim()}
-                        className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white"
+                        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         {processing ? (
                             <>
