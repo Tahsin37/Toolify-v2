@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { clsx } from 'clsx';
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -61,6 +62,7 @@ export default function RootLayout({
         <html lang="en" className={clsx(inter.variable, jetbrainsMono.variable)}>
             <body className="min-h-screen antialiased selection:bg-blue-500/30">
                 {children}
+                <Analytics />
             </body>
         </html>
     );

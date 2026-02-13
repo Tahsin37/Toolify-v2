@@ -270,6 +270,12 @@ export function SeoChecker() {
         return 'text-red-600';
     };
 
+    const getScoreStroke = (score: number) => {
+        if (score >= 80) return 'stroke-emerald-500';
+        if (score >= 60) return 'stroke-amber-500';
+        return 'stroke-red-500';
+    };
+
     const getScoreBg = (score: number) => {
         if (score >= 80) return 'bg-emerald-500';
         if (score >= 60) return 'bg-amber-500';
@@ -357,7 +363,7 @@ export function SeoChecker() {
                                     />
                                     <circle
                                         cx="64" cy="64" r="56"
-                                        className={`fill-none ${getScoreBg(result.score).replace('bg-', 'stroke-')}`}
+                                        className={`fill-none ${getScoreStroke(result.score)}`}
                                         strokeWidth="12"
                                         strokeLinecap="round"
                                         strokeDasharray={`${(result.score / 100) * 352} 352`}
@@ -405,7 +411,7 @@ export function SeoChecker() {
                         <div className="space-y-2">
                             {result.checks.map((check, i) => (
                                 <div key={i} className={`flex items-center justify-between p-3 rounded-lg ${check.status === 'pass' ? 'bg-emerald-50' :
-                                        check.status === 'warning' ? 'bg-amber-50' : 'bg-red-50'
+                                    check.status === 'warning' ? 'bg-amber-50' : 'bg-red-50'
                                     }`}>
                                     <div className="flex items-center gap-3">
                                         <StatusIcon status={check.status} />
@@ -415,8 +421,8 @@ export function SeoChecker() {
                                         </div>
                                     </div>
                                     <span className={`text-xs px-2 py-1 rounded ${check.impact === 'high' ? 'bg-red-100 text-red-700' :
-                                            check.impact === 'medium' ? 'bg-amber-100 text-amber-700' :
-                                                'bg-slate-100 text-slate-700'
+                                        check.impact === 'medium' ? 'bg-amber-100 text-amber-700' :
+                                            'bg-slate-100 text-slate-700'
                                         }`}>
                                         {check.impact} impact
                                     </span>

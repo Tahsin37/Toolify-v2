@@ -75,7 +75,11 @@ export function VideoToGif() {
 
             // Run conversion: -i input.mp4 -f gif output.gif (simplified)
             // Can add scaling like -vf "fps=10,scale=320:-1:flags=lanczos" for optimization
-            await ffmpeg.exec(['-i', inputName, '-vf', 'fps=10,scale=480:-1:flags=lanczos', '-c:v', 'gif', '-f', 'gif', outputName]);
+            // Run conversion with better quality:
+            // -fps=15: smoother animation (up from 10)
+            // -scale=480:-1:flags=lanczos: good balance of size/quality (user can resize later if needed)
+            // -dither=sierra2_4a: better color dithering
+            await ffmpeg.exec(['-i', inputName, '-vf', 'fps=15,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse', '-f', 'gif', outputName]);
 
             const data = await ffmpeg.readFile(outputName);
             const blob = new Blob([data as any], { type: 'image/gif' });

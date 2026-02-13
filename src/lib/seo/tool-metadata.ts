@@ -373,6 +373,83 @@ export const TOOL_SEO_METADATA: Record<string, ToolSEO> = {
             { question: 'Why convert GIF to video?', answer: 'Videos (MP4) are smaller in size and supported by platforms like Instagram that do not support GIFs directly.' },
             { question: 'Is the conversion secure?', answer: 'Yes, all processing happens in your browser. Your files are never uploaded to any server.' }
         ]
+    },
+    'pdf-compress': {
+        title: 'Compress PDF - Reduce PDF File Size Online | Free Tool',
+        description: 'Free PDF Compressor. Reduce PDF file size by stripping metadata and optimizing storage. See before/after comparison. 100% client-side.',
+        keywords: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'pdf optimizer', 'shrink pdf'],
+        h1: 'Compress PDF',
+        h2: 'Reduce PDF File Size Online',
+        faq: [
+            { question: 'How does PDF compression work?', answer: 'Our tool strips metadata, optimizes object storage, and removes unused data to reduce file size.' },
+            { question: 'Is the quality affected?', answer: 'Text quality remains identical. The compression focuses on metadata and storage optimization.' }
+        ]
+    },
+    'pdf-from-images': {
+        title: 'Image to PDF - Convert Images to PDF Online | Free Tool',
+        description: 'Free Image to PDF Converter. Convert JPG, PNG, WebP images to PDF. Reorder pages, choose page size and orientation. Client-side processing.',
+        keywords: ['image to pdf', 'jpg to pdf', 'png to pdf', 'convert images to pdf', 'photo to pdf'],
+        h1: 'Image to PDF Converter',
+        h2: 'Convert Multiple Images to a Single PDF',
+        faq: [
+            { question: 'What image formats are supported?', answer: 'JPG, PNG, and WebP images are supported. You can mix different formats.' },
+            { question: 'Can I reorder the pages?', answer: 'Yes, drag images up or down to reorder them before creating the PDF.' }
+        ]
+    },
+    'pdf-page-numbers': {
+        title: 'Add Page Numbers to PDF Online | Free Tool',
+        description: 'Free PDF Page Number tool. Add page numbers to any PDF. Choose position, format, font size, and starting number. Skip cover page option.',
+        keywords: ['add page numbers pdf', 'pdf page numbering', 'number pdf pages', 'pdf page counter'],
+        h1: 'Add Page Numbers to PDF',
+        h2: 'Number Your PDF Pages Automatically',
+        faq: [
+            { question: 'Can I skip the first page?', answer: 'Yes, toggle the "Skip first page" option to leave your cover page unnumbered.' },
+            { question: 'What number formats are available?', answer: 'Choose from plain numbers, "Page 1", "1 of N", or "Page 1 of N" formats.' }
+        ]
+    },
+    'pdf-watermark': {
+        title: 'Add Watermark to PDF Online | Free Tool',
+        description: 'Free PDF Watermark tool. Add text watermarks to every page. Customize opacity, rotation, color, font size, and pattern. 100% private.',
+        keywords: ['pdf watermark', 'add watermark pdf', 'watermark pdf online', 'text watermark pdf'],
+        h1: 'Add Watermark to PDF',
+        h2: 'Protect Your PDF with Text Watermarks',
+        faq: [
+            { question: 'Can I customize the watermark?', answer: 'Yes, customize the text, color, opacity, rotation, font size, and position (center, diagonal, or tiled).' },
+            { question: 'Is my file secure?', answer: 'All processing happens in your browser. No files are uploaded to any server.' }
+        ]
+    },
+    'pdf-protect': {
+        title: 'Password Protect PDF Online | Free Tool',
+        description: 'Free PDF Protection tool. Add password encryption to PDF files with user and owner passwords. Control printing, copying, and modifying permissions.',
+        keywords: ['protect pdf', 'password protect pdf', 'encrypt pdf', 'pdf password', 'pdf security'],
+        h1: 'Protect PDF with Password',
+        h2: 'Add Password Encryption to Your PDF',
+        faq: [
+            { question: 'What is the difference between user and owner passwords?', answer: 'The user password is required to open the PDF. The owner password controls editing permissions.' },
+            { question: 'Can I restrict printing?', answer: 'Yes, you can control permissions for printing, copying text, and modifying the document.' }
+        ]
+    },
+    'pdf-unlock': {
+        title: 'Unlock PDF - Remove Password from PDF | Free Tool',
+        description: 'Free PDF Unlock tool. Remove password protection from PDF files. Enter the current password to decrypt and save an unprotected copy.',
+        keywords: ['unlock pdf', 'remove pdf password', 'decrypt pdf', 'unprotect pdf', 'pdf password remover'],
+        h1: 'Unlock PDF',
+        h2: 'Remove Password Protection from PDF',
+        faq: [
+            { question: 'Do I need the password to unlock?', answer: 'Yes, you must know the current password to decrypt and remove protection from the PDF.' },
+            { question: 'Is it legal to unlock PDFs?', answer: 'It is legal to unlock PDFs that you own or have authorization to access.' }
+        ]
+    },
+    'pdf-organize': {
+        title: 'Organize PDF Pages - Reorder & Delete | Free Tool',
+        description: 'Free PDF Page Organizer. Visually reorder, delete, and reorganize pages with drag-and-drop thumbnails. All processing in your browser.',
+        keywords: ['organize pdf', 'reorder pdf pages', 'delete pdf pages', 'rearrange pdf', 'pdf page manager'],
+        h1: 'Organize PDF Pages',
+        h2: 'Reorder and Delete PDF Pages Visually',
+        faq: [
+            { question: 'Can I delete specific pages?', answer: 'Yes, click the delete button on any page thumbnail or select multiple pages and delete them at once.' },
+            { question: 'How do I reorder pages?', answer: 'Simply drag and drop page thumbnails to rearrange them in your desired order.' }
+        ]
     }
 } as const;
 

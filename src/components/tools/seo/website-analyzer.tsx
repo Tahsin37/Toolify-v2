@@ -35,12 +35,7 @@ interface AnalysisResult {
     pageContent?: string;
 }
 
-// Free CORS proxy options - we try multiple
-const CORS_PROXIES = [
-    'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?',
-    'https://api.codetabs.com/v1/proxy?quest=',
-];
+
 
 export function WebsiteAnalyzer() {
     const [url, setUrl] = React.useState('');
@@ -98,76 +93,17 @@ export function WebsiteAnalyzer() {
                 targetUrl = 'https://' + targetUrl;
             }
 
-            const isHttps = targetUrl.startsWith('https://');
-            const startTime = performance.now();
-            setProgress(20);
+            setProgress(30);
 
-            let html = '';
-            let fetchSuccess = false;
-            let responseHeaders: Record<string, string> = {};
+            const response = await fetch(`/api/analyze?url=${encodeURIComponent(targetUrl)}`);
+            const data = await response.json();
 
-            // Try each CORS proxy
-            for (const proxy of CORS_PROXIES) {
-                if (fetchSuccess) break;
+            setProgress(90);
 
-                try {
-                    const proxyUrl = proxy + encodeURIComponent(targetUrl);
-                    const response = await fetch(proxyUrl, {
-                        headers: {
-                            'Accept': 'text/html',
-                        },
-                    });
-
-                    if (response.ok) {
-                        html = await response.text();
-
-                        // Get headers from response
-                        response.headers.forEach((value, key) => {
-                            responseHeaders[key] = value;
-                        });
-
-                        fetchSuccess = true;
-                        setProgress(60);
-                    }
-                } catch (err) {
-                    console.log(`Proxy ${proxy} failed, trying next...`);
-                }
-            }
-
-            const loadTime = Math.round(performance.now() - startTime);
-            setProgress(80);
-
-            if (fetchSuccess && html) {
-                const meta = extractMeta(html, targetUrl);
-
-                setResult({
-                    url: targetUrl,
-                    status: 'success',
-                    loadTime,
-                    ssl: isHttps,
-                    headers: responseHeaders,
-                    meta,
-                    contentType: responseHeaders['content-type'] || 'text/html',
-                    contentLength: html.length,
-                    server: responseHeaders['server'] || 'Unknown',
-                    pageContent: html.substring(0, 500) + '...',
-                });
+            if (response.ok) {
+                setResult(data);
             } else {
-                // Fallback: basic analysis without content
-                setResult({
-                    url: targetUrl,
-                    status: 'success',
-                    loadTime,
-                    ssl: isHttps,
-                    headers: {
-                        'Note': 'Full headers require server-side proxy',
-                    },
-                    meta: {
-                        title: 'Could not fetch meta (CORS blocked)',
-                        description: 'Try a different website or use our backend API',
-                    },
-                    server: 'Unknown (CORS restricted)',
-                });
+                throw new Error(data.error || 'Failed to analyze website');
             }
         } catch (error) {
             setResult({
@@ -399,9 +335,9 @@ export function WebsiteAnalyzer() {
                     <div>
                         <h4 className="font-semibold text-blue-800 mb-1">How It Works</h4>
                         <p className="text-sm text-blue-700">
-                            This analyzer fetches website content through CORS proxies and extracts meta tags,
-                            Open Graph data, and other SEO information. All processing happens in your browser.
-                            Some websites may block CORS requests - if analysis fails, try a different website.
+                            This analyzer fetches website content using our secure server-side engine to extract detailed meta tags,
+                            headers, and SEO metrics. It respects robots.txt and identifies as 'ToolifyBot'.
+                            Some websites may block automated requests.
                         </p>
                     </div>
                 </div>

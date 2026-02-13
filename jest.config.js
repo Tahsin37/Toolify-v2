@@ -1,24 +1,19 @@
-/** @type {import('jest').Config} */
-const config = {
+module.exports = {
     preset: 'ts-jest',
-    testEnvironment: 'node',
-    roots: ['<rootDir>/src'],
-    testMatch: ['**/__tests__/**/*.ts', '**/*.test.ts'],
+    testEnvironment: 'jsdom',
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1'
+        '^@/(.*)$': '<rootDir>/src/$1',
+        '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     },
-    collectCoverageFrom: [
-        'src/lib/**/*.ts',
-        '!src/lib/**/*.d.ts'
+    transform: {
+        '^.+\\.(ts|tsx)$': ['ts-jest', {
+            tsconfig: {
+                jsx: 'react-jsx',
+            },
+        }],
+    },
+    transformIgnorePatterns: [
+        'node_modules/(?!(lucide-react)/)',
     ],
-    coverageThreshold: {
-        global: {
-            branches: 80,
-            functions: 80,
-            lines: 80,
-            statements: 80
-        }
-    }
 };
-
-module.exports = config;

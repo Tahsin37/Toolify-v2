@@ -69,10 +69,20 @@ export function GifToVideo() {
             // Run conversion: -i input.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" output.mp4
             // yuv420p is needed for compatibility with most players
             // scale is needed because h264 requires even dimensions
+            // Improved quality settings:
+            // -movflags faststart: Enable playback before download completes
+            // -pix_fmt yuv420p: Maximum compatibility
+            // -c:v libx264: H.264 codec
+            // -crf 23: Good quality/size balance (lower is better, 18-28 is standard)
+            // -preset fast: Balance speed/compression
+            // -vf: Ensure even dimensions (required for H.264)
             await ffmpeg.exec([
                 '-i', inputName,
                 '-movflags', 'faststart',
                 '-pix_fmt', 'yuv420p',
+                '-c:v', 'libx264',
+                '-crf', '23',
+                '-preset', 'fast',
                 '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
                 outputName
             ]);

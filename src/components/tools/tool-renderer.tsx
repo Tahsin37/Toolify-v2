@@ -264,10 +264,12 @@ const PowerZipCreator = dynamic(() => import('@/components/tools/converter/power
 
 const DocToPdf = dynamic(() => import('@/components/tools/converter/doc-to-pdf').then(mod => mod.DocToPdf), {
     loading: () => <ToolLoading />,
+    ssr: false
 });
 
 const PdfToDoc = dynamic(() => import('@/components/tools/converter/pdf-to-doc').then(mod => mod.PdfToDoc), {
     loading: () => <ToolLoading />,
+    ssr: false
 });
 
 const CsvToXlsx = dynamic(() => import('@/components/tools/converter/csv-to-xlsx').then(mod => mod.CsvToXlsx), {
@@ -326,8 +328,54 @@ const FaviconGenerator = dynamic(() => import('@/components/tools/utility/favico
     loading: () => <ToolLoading />,
 });
 
-const PdfMerger = dynamic(() => import('@/components/tools/utility/pdf-merger').then(mod => mod.PdfMerger), {
+const PdfMerge = dynamic(() => import('@/components/tools/pdf/pdf-merge').then(mod => mod.PdfMerge), {
     loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfSplit = dynamic(() => import('@/components/tools/pdf/pdf-split').then(mod => mod.PdfSplit), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfRotate = dynamic(() => import('@/components/tools/pdf/pdf-rotate').then(mod => mod.PdfRotate), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfCompress = dynamic(() => import('@/components/tools/pdf/pdf-compress').then(mod => mod.PdfCompress), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfFromImages = dynamic(() => import('@/components/tools/pdf/pdf-from-images').then(mod => mod.PdfFromImages), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfPageNumbers = dynamic(() => import('@/components/tools/pdf/pdf-page-numbers').then(mod => mod.PdfPageNumbers), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfWatermark = dynamic(() => import('@/components/tools/pdf/pdf-watermark').then(mod => mod.PdfWatermark), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfProtect = dynamic(() => import('@/components/tools/pdf/pdf-protect').then(mod => mod.PdfProtect), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfUnlock = dynamic(() => import('@/components/tools/pdf/pdf-unlock').then(mod => mod.PdfUnlock), {
+    loading: () => <ToolLoading />,
+    ssr: false
+});
+
+const PdfOrganize = dynamic(() => import('@/components/tools/pdf/pdf-organize').then(mod => mod.PdfOrganize), {
+    loading: () => <ToolLoading />,
+    ssr: false
 });
 
 const KeyboardTester = dynamic(() => import('@/components/tools/utility/keyboard-tester').then(mod => mod.KeyboardTester), {
@@ -563,7 +611,25 @@ export function ToolRenderer({ slug }: { slug: string }) {
         case 'favicon-generator':
             return <FaviconGenerator />;
         case 'pdf-merger':
-            return <PdfMerger />;
+            return <PdfMerge />;
+        case 'pdf-splitter':
+            return <PdfSplit />;
+        case 'pdf-rotator':
+            return <PdfRotate />;
+        case 'pdf-compress':
+            return <PdfCompress />;
+        case 'pdf-from-images':
+            return <PdfFromImages />;
+        case 'pdf-page-numbers':
+            return <PdfPageNumbers />;
+        case 'pdf-watermark':
+            return <PdfWatermark />;
+        case 'pdf-protect':
+            return <PdfProtect />;
+        case 'pdf-unlock':
+            return <PdfUnlock />;
+        case 'pdf-organize':
+            return <PdfOrganize />;
         case 'regex-tester':
             return <RegexTester />;
         case 'keyboard-tester':
